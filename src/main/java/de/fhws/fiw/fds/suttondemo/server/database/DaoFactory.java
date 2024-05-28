@@ -15,9 +15,9 @@
 package de.fhws.fiw.fds.suttondemo.server.database;
 
 
-import de.fhws.fiw.fds.suttondemo.server.database.inmemory.LocationStorage;
-import de.fhws.fiw.fds.suttondemo.server.database.inmemory.PersonLocationStorage;
-import de.fhws.fiw.fds.suttondemo.server.database.inmemory.PersonStorage;
+import de.fhws.fiw.fds.suttondemo.server.database.inmemory.ModuleStorage;
+import de.fhws.fiw.fds.suttondemo.server.database.inmemory.UniversityModuleStorage;
+import de.fhws.fiw.fds.suttondemo.server.database.inmemory.UniversityStorage;
 
 public class DaoFactory {
 
@@ -31,27 +31,27 @@ public class DaoFactory {
         return INSTANCE;
     }
 
-    private final PersonDao personDao;
+    private final UniversityDao universityDao;
 
-    private final LocationDao locationDao;
+    private final ModuleDao moduleDao;
 
-    private final PersonLocationDao personLocationDao;
+    private final UniversityModuleDao universityModuleDao;
 
     private DaoFactory() {
-        this.personDao = new PersonStorage();
-        this.locationDao = new LocationStorage();
-        this.personLocationDao = new PersonLocationStorage(this.locationDao);
+        this.universityDao = new UniversityStorage();
+        this.moduleDao = new ModuleStorage();
+        this.universityModuleDao = new UniversityModuleStorage(this.moduleDao);
     }
 
-    public PersonDao getPersonDao() {
-        return this.personDao;
+    public UniversityDao getUniversityDao() {
+        return this.universityDao;
     }
 
-    public LocationDao getLocationDao() {
-        return this.locationDao;
+    public ModuleDao getModuleDao() {
+        return this.moduleDao;
     }
 
-    public PersonLocationDao getPersonLocationDao() {
-        return personLocationDao;
+    public UniversityModuleDao getUniversityModuleDao() {
+        return universityModuleDao;
     }
 }

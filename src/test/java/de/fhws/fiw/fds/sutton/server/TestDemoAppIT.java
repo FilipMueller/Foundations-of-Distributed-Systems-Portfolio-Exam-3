@@ -2,7 +2,7 @@ package de.fhws.fiw.fds.sutton.server;
 
 
 import com.github.javafaker.Faker;
-import de.fhws.fiw.fds.suttondemo.client.models.PersonClientModel;
+import de.fhws.fiw.fds.suttondemo.client.models.UniversityClientModel;
 import de.fhws.fiw.fds.suttondemo.client.rest.DemoRestClient;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -45,11 +45,11 @@ public class TestDemoAppIT {
     {
         client.start();
 
-        var person = new PersonClientModel();
-        person.setFirstName("Max");
-        person.setLastName("Mustermann");
-        person.setBirthDate(LocalDate.of( 1990, 1, 1));
-        person.setEmailAddress("max.mustermann@thws.de");
+        var person = new UniversityClientModel();
+        person.setName("Max");
+        person.setCountry("Mustermann");
+        person.setNextSpringSemesterStart(LocalDate.of( 1990, 1, 1));
+        person.setContactPerson("max.mustermann@thws.de");
 
         client.createPerson(person);
         assertEquals(201, client.getLastStatusCode());
@@ -59,11 +59,11 @@ public class TestDemoAppIT {
     {
         client.start();
 
-        var person = new PersonClientModel();
-        person.setFirstName("Max");
-        person.setLastName("Mustermann");
-        person.setBirthDate(LocalDate.of( 1990, 1, 1));
-        person.setEmailAddress("max.mustermann@thws.de");
+        var person = new UniversityClientModel();
+        person.setName("Max");
+        person.setCountry("Mustermann");
+        person.setNextSpringSemesterStart(LocalDate.of( 1990, 1, 1));
+        person.setContactPerson("max.mustermann@thws.de");
 
         client.createPerson(person);
         assertEquals(201, client.getLastStatusCode());
@@ -73,7 +73,7 @@ public class TestDemoAppIT {
         assertEquals(200, client.getLastStatusCode());
 
         var personFromServer = client.personData().getFirst();
-        assertEquals( "Mustermann", personFromServer.getLastName() );
+        assertEquals( "Mustermann", personFromServer.getCountry() );
     }
 
     @Test void test_create_5_person_and_get_all() throws IOException
@@ -86,11 +86,11 @@ public class TestDemoAppIT {
         for( int i=0; i<5; i++ ) {
             client.start();
 
-            var person = new PersonClientModel();
-            person.setFirstName(faker.name().firstName());
-            person.setLastName(faker.name().lastName());
-            person.setBirthDate(LocalDate.of(1990, 1, 1));
-            person.setEmailAddress(faker.internet().emailAddress());
+            var person = new UniversityClientModel();
+            person.setName(faker.name().firstName());
+            person.setCountry(faker.name().lastName());
+            person.setNextSpringSemesterStart(LocalDate.of(1990, 1, 1));
+            person.setContactPerson(faker.internet().emailAddress());
 
             client.createPerson(person);
             assertEquals(201, client.getLastStatusCode());

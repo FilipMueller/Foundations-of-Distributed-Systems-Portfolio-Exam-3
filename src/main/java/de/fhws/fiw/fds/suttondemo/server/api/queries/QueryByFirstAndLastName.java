@@ -19,10 +19,10 @@ import de.fhws.fiw.fds.sutton.server.api.queries.PagingBehaviorUsingOffsetSize;
 import de.fhws.fiw.fds.sutton.server.database.DatabaseException;
 import de.fhws.fiw.fds.sutton.server.database.SearchParameter;
 import de.fhws.fiw.fds.sutton.server.database.results.CollectionModelResult;
-import de.fhws.fiw.fds.suttondemo.server.api.models.Person;
+import de.fhws.fiw.fds.suttondemo.server.api.models.University;
 import de.fhws.fiw.fds.suttondemo.server.database.DaoFactory;
 
-public class QueryByFirstAndLastName<R> extends AbstractQuery<R, Person> {
+public class QueryByFirstAndLastName<R> extends AbstractQuery<R, University> {
 
     private String firstName;
     private String lastName;
@@ -49,8 +49,8 @@ public class QueryByFirstAndLastName<R> extends AbstractQuery<R, Person> {
         this.lastName = lastName;
     }
 
-    protected CollectionModelResult<Person> doExecuteQuery(SearchParameter searchParameter) throws DatabaseException {
-        return DaoFactory.getInstance().getPersonDao().readByFirstNameAndLastName(
+    protected CollectionModelResult<University> doExecuteQuery(SearchParameter searchParameter) throws DatabaseException {
+        return DaoFactory.getInstance().getUniversityDao().readByFirstNameAndLastName(
                 this.firstName,
                 this.lastName,
                 searchParameter);

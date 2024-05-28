@@ -2,13 +2,13 @@ package de.fhws.fiw.fds.suttondemo.client.web;
 
 import de.fhws.fiw.fds.sutton.client.web.GenericWebClient;
 import de.fhws.fiw.fds.sutton.client.web.WebApiResponse;
-import de.fhws.fiw.fds.suttondemo.client.models.PersonClientModel;
+import de.fhws.fiw.fds.suttondemo.client.models.UniversityClientModel;
 
 import java.io.IOException;
 
 public class PersonWebClient {
 
-    private GenericWebClient<PersonClientModel> client;
+    private GenericWebClient<UniversityClientModel> client;
 
     public PersonWebClient() {
         this.client = new GenericWebClient<>();
@@ -21,19 +21,19 @@ public class PersonWebClient {
 
 
     public PersonWebResponse getSinglePerson(String url) throws IOException {
-        return createResponse(this.client.sendGetSingleRequest(url, PersonClientModel.class));
+        return createResponse(this.client.sendGetSingleRequest(url, UniversityClientModel.class));
     }
 
     public PersonWebResponse getCollectionOfPersons(String url) throws IOException {
-        return createResponse(this.client.sendGetCollectionRequest(url, PersonClientModel.class));
+        return createResponse(this.client.sendGetCollectionRequest(url, UniversityClientModel.class));
     }
 
-    public PersonWebResponse postNewPerson(String url, PersonClientModel person)
+    public PersonWebResponse postNewPerson(String url, UniversityClientModel person)
             throws IOException {
         return createResponse(this.client.sendPostRequest(url, person));
     }
 
-    public PersonWebResponse putPerson(String url, PersonClientModel person) throws IOException {
+    public PersonWebResponse putPerson(String url, UniversityClientModel person) throws IOException {
         return createResponse(this.client.sendPutRequest(url, person));
     }
 
@@ -45,7 +45,7 @@ public class PersonWebClient {
         return createResponse(this.client.sendGetSingleRequest(url + "/resetdatabase"));
     }
 
-    private PersonWebResponse createResponse(WebApiResponse<PersonClientModel> response) {
+    private PersonWebResponse createResponse(WebApiResponse<UniversityClientModel> response) {
         return new PersonWebResponse(response.getResponseData(), response.getResponseHeaders(),
                 response.getLastStatusCode());
     }

@@ -2,8 +2,8 @@ package de.fhws.fiw.fds.suttondemo.client.rest;
 
 
 import de.fhws.fiw.fds.sutton.client.rest2.AbstractRestClient;
-import de.fhws.fiw.fds.suttondemo.client.models.LocationClientModel;
-import de.fhws.fiw.fds.suttondemo.client.models.PersonClientModel;
+import de.fhws.fiw.fds.suttondemo.client.models.ModuleClientModel;
+import de.fhws.fiw.fds.suttondemo.client.models.UniversityClientModel;
 import de.fhws.fiw.fds.suttondemo.client.web.PersonWebClient;
 
 import java.io.IOException;
@@ -17,10 +17,10 @@ public class DemoRestClient extends AbstractRestClient {
     private static final String CREATE_PERSON = "createPerson";
 
 
-    private List<PersonClientModel> currentPersonData;
+    private List<UniversityClientModel> currentPersonData;
     private int cursorPersonData = 0;
 
-    private List<LocationClientModel> currentLocationData;
+    private List<ModuleClientModel> currentLocationData;
     private int cursorLocationData = 0;
 
     final private PersonWebClient client;
@@ -45,7 +45,7 @@ public class DemoRestClient extends AbstractRestClient {
         return isLinkAvailable(CREATE_PERSON);
     }
 
-    public void createPerson(PersonClientModel person) throws IOException {
+    public void createPerson(UniversityClientModel person) throws IOException {
         if (isCreatePersonAllowed()) {
             processResponse(this.client.postNewPerson(getUrl(CREATE_PERSON), person), (response) -> {
                 this.currentPersonData = Collections.EMPTY_LIST;
@@ -75,7 +75,7 @@ public class DemoRestClient extends AbstractRestClient {
         return !this.currentPersonData.isEmpty() || isLocationHeaderAvailable();
     }
 
-    public List<PersonClientModel> personData() {
+    public List<UniversityClientModel> personData() {
         if (this.currentPersonData.isEmpty()) {
             throw new IllegalStateException();
         }
