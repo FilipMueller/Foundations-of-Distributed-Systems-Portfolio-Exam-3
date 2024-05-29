@@ -23,7 +23,7 @@ public class UniversityStorage extends AbstractInMemoryStorage<University> imple
     }
 
     private Predicate<University> byFirstAndLastName(String firstName, String lastName) {
-        return p -> (firstName.isEmpty() || p.getName().equals(firstName) ) && ( lastName.isEmpty() || p.getCountry().equals(lastName));
+        return u -> (firstName.isEmpty() || u.getName().equals(firstName) ) && ( lastName.isEmpty() || u.getCountry().equals(lastName));
     }
 
 }

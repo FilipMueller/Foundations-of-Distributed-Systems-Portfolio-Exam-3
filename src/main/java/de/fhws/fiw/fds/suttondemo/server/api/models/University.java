@@ -57,8 +57,8 @@ public class University extends AbstractModel {
     }
 
     public University(final String name, final String country, final String departmentName, final String departmentUrl,
-                             final String contactPerson, final int outboundStudents, final int inboundStudents,
-                             final LocalDate nextSpringSemesterStart, final LocalDate nextAutumnSemesterStart) {
+                      final String contactPerson, final int outboundStudents, final int inboundStudents,
+                      final LocalDate nextSpringSemesterStart, final LocalDate nextAutumnSemesterStart) {
         this.name = name;
         this.country = country;
         this.departmentName = departmentName;
@@ -73,6 +73,7 @@ public class University extends AbstractModel {
     public Link getSelfLink() {
         return selfLink;
     }
+
     public void setSelfLink(Link selfLink) {
         this.selfLink = selfLink;
     }

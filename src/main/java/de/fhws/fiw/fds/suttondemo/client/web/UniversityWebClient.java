@@ -6,47 +6,47 @@ import de.fhws.fiw.fds.suttondemo.client.models.UniversityClientModel;
 
 import java.io.IOException;
 
-public class PersonWebClient {
+public class UniversityWebClient {
 
     private GenericWebClient<UniversityClientModel> client;
 
-    public PersonWebClient() {
+    public UniversityWebClient() {
         this.client = new GenericWebClient<>();
     }
 
-    public PersonWebResponse getDispatcher( String url ) throws IOException
+    public UniversityWebResponse getDispatcher(String url ) throws IOException
     {
         return createResponse( this.client.sendGetSingleRequest( url ) );
     }
 
 
-    public PersonWebResponse getSinglePerson(String url) throws IOException {
+    public UniversityWebResponse getSingleUniversity(String url) throws IOException {
         return createResponse(this.client.sendGetSingleRequest(url, UniversityClientModel.class));
     }
 
-    public PersonWebResponse getCollectionOfPersons(String url) throws IOException {
+    public UniversityWebResponse getCollectionOfUniversities(String url) throws IOException {
         return createResponse(this.client.sendGetCollectionRequest(url, UniversityClientModel.class));
     }
 
-    public PersonWebResponse postNewPerson(String url, UniversityClientModel person)
+    public UniversityWebResponse postNewUniversity(String url, UniversityClientModel person)
             throws IOException {
         return createResponse(this.client.sendPostRequest(url, person));
     }
 
-    public PersonWebResponse putPerson(String url, UniversityClientModel person) throws IOException {
+    public UniversityWebResponse putUniversity(String url, UniversityClientModel person) throws IOException {
         return createResponse(this.client.sendPutRequest(url, person));
     }
 
-    public PersonWebResponse deletePerson(String url) throws IOException {
+    public UniversityWebResponse deleteUniversity(String url) throws IOException {
         return createResponse(this.client.sendDeleteRequest(url));
     }
 
-    public PersonWebResponse resetDatabaseOnServer(String url) throws IOException {
+    public UniversityWebResponse resetDatabaseOnServer(String url) throws IOException {
         return createResponse(this.client.sendGetSingleRequest(url + "/resetdatabase"));
     }
 
-    private PersonWebResponse createResponse(WebApiResponse<UniversityClientModel> response) {
-        return new PersonWebResponse(response.getResponseData(), response.getResponseHeaders(),
+    private UniversityWebResponse createResponse(WebApiResponse<UniversityClientModel> response) {
+        return new UniversityWebResponse(response.getResponseData(), response.getResponseHeaders(),
                 response.getLastStatusCode());
     }
 

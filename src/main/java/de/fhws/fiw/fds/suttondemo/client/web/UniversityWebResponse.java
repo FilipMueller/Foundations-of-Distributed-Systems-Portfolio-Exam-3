@@ -20,10 +20,10 @@ import okhttp3.Headers;
 
 import java.util.Collection;
 
-public class PersonWebResponse extends WebApiResponse<UniversityClientModel> {
+public class UniversityWebResponse extends WebApiResponse<UniversityClientModel> {
 
 
-    public PersonWebResponse(final Collection<UniversityClientModel> responseData, final Headers headers, final int lastStatusCode) {
+    public UniversityWebResponse(final Collection<UniversityClientModel> responseData, final Headers headers, final int lastStatusCode) {
         super(responseData, headers, lastStatusCode);
     }
 

@@ -89,7 +89,6 @@ public class UniversityJerseyService extends AbstractJerseyService {
 
     @DELETE
     @Path("{id: \\d+}")
-    @Consumes({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
     public Response deleteSingleUniversity(@PathParam("id") final long id) {
         try {
             return new DeleteSingleUniversity(this.serviceContext, id).execute();
@@ -128,7 +127,7 @@ public class UniversityJerseyService extends AbstractJerseyService {
     }
 
     @POST
-    @Path("{universityId: \\d+}/module")
+    @Path("{universityId: \\d+}/modules")
     @Consumes({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
     public Response createNewModuleOfUniversity(@PathParam("universityId") final long universityId, final Module module) {
         try {
