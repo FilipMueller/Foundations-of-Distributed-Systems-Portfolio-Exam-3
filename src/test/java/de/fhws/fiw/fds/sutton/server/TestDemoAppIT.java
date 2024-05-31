@@ -1,9 +1,9 @@
 package de.fhws.fiw.fds.sutton.server;
 
 
-import com.github.javafaker.Faker;
 import de.fhws.fiw.fds.suttondemo.client.models.UniversityClientModel;
 import de.fhws.fiw.fds.suttondemo.client.rest.DemoRestClient;
+import org.eclipse.jdt.internal.compiler.tool.EclipseCompilerImpl;
 import org.jetbrains.annotations.NotNull;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -103,7 +103,7 @@ public class TestDemoAppIT {
 
         client.createUniversity(university);
         assertEquals(201, client.getLastStatusCode());
-        assertTrue( client.isGetSingleUniversityAllowed() );
+        assertTrue( client.isDeleteUniversityAllowed() );
 
         client.deleteSingleUniversity();
         assertEquals(204, client.getLastStatusCode());
@@ -119,9 +119,11 @@ public class TestDemoAppIT {
             client.createUniversity(university);
             assertEquals(201, client.getLastStatusCode());
         }
-        client.start();
 
-        client.deleteSingleUniversity(3);
+
+        assertTrue(client.isDeleteUniversityAllowed());
+
+        client.deleteSingleUniversity();
         assertEquals(204, client.getLastStatusCode());
     }
 

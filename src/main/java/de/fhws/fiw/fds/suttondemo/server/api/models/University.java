@@ -160,7 +160,7 @@ public class University extends AbstractModel {
 
     @Override
     public String toString() {
-        return "PartnerUniversity{" +
+        return "University{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
                 ", country='" + country + '\'' +

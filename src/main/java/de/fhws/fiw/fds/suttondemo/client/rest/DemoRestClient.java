@@ -20,8 +20,8 @@ public class DemoRestClient extends AbstractRestClient {
     private List<UniversityClientModel> currentUniversityData;
     private int cursorUniversityData = 0;
 
-    private List<ModuleClientModel> currentLocationData;
-    private int cursorLocationData = 0;
+    private List<ModuleClientModel> currentModuleData;
+    private int cursorModuleData = 0;
 
     final private UniversityWebClient client;
 
@@ -114,6 +114,9 @@ public class DemoRestClient extends AbstractRestClient {
         });
     }
 
+    public boolean isDeleteUniversityAllowed() {
+        return !this.currentUniversityData.isEmpty() || isLocationHeaderAvailable();
+    }
 
     public void deleteSingleUniversity() throws IOException {
         if ( isLocationHeaderAvailable()) {
@@ -134,6 +137,10 @@ public class DemoRestClient extends AbstractRestClient {
     private void deleteSingleUniversity(String url) throws IOException {
         processResponse(this.client.deleteUniversity(url), (response) -> {
         });
+    }
+
+    public boolean isUpdateUniversityAllowed() {
+        return !this.currentUniversityData.isEmpty() || isLocationHeaderAvailable();
     }
 
 
