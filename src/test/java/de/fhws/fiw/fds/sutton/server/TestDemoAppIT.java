@@ -1,9 +1,8 @@
 package de.fhws.fiw.fds.sutton.server;
 
 
-import de.fhws.fiw.fds.suttondemo.client.models.UniversityClientModel;
-import de.fhws.fiw.fds.suttondemo.client.rest.DemoRestClient;
-import org.eclipse.jdt.internal.compiler.tool.EclipseCompilerImpl;
+import de.fhws.fiw.fds.exam03.client.models.UniversityClientModel;
+import de.fhws.fiw.fds.exam03.client.rest.DemoRestClient;
 import org.jetbrains.annotations.NotNull;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
