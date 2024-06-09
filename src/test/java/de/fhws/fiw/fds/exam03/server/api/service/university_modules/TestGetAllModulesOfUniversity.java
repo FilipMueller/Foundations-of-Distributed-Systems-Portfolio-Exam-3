@@ -1,4 +1,61 @@
 package de.fhws.fiw.fds.exam03.server.api.service.university_modules;
 
+import de.fhws.fiw.fds.exam03.client.rest.DemoRestClient;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+
+import java.io.IOException;
+
+import static de.fhws.fiw.fds.exam03.server.api.service.CreateModels.getModuleClientModel;
+import static de.fhws.fiw.fds.exam03.server.api.service.CreateModels.getUniversityClientModel;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
 public class TestGetAllModulesOfUniversity {
+
+    private DemoRestClient client;
+    private final String UNIVERSITY_NAME = "Test University";
+    private final String MODULE_NAME = "Test Module";
+
+    @BeforeEach
+    public void setUp() throws IOException {
+        this.client = new DemoRestClient();
+        this.client.resetDatabase();
+    }
+
+    @Test
+    void test_get_all_modules_of_university() throws IOException {
+        client.start();
+        var university = getUniversityClientModel();
+        university.setName(UNIVERSITY_NAME);
+        client.createUniversity(university);
+        assertEquals(201, client.getLastStatusCode());
+
+        client.getSingleUniversity();
+        assertEquals(200, client.getLastStatusCode());
+
+        assertTrue(client.isCreateModuleAllowed(), "Creating module is not allowed.");
+        long id = university.getId();
+
+        for( int i=0; i<5; i++ ) {
+            client.start();
+
+            var module = getModuleClientModel();
+
+            assertTrue(client.isCreateUniversityAllowed());
+
+            client.createModule(id, module);
+            module.setName(MODULE_NAME);
+            assertEquals(201, client.getLastStatusCode());
+        }
+
+        client.start();
+
+        client.getSingleUniversity();
+        assertEquals(200, client.getLastStatusCode());
+
+        assertTrue(client.isGetAllModulesAllowed());
+        client.getAllModules(id);
+        assertEquals(200, client.getLastStatusCode());
+    }
 }

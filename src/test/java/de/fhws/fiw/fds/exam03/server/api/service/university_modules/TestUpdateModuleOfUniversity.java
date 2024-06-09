@@ -11,7 +11,7 @@ import static de.fhws.fiw.fds.exam03.server.api.service.CreateModels.getUniversi
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-public class TestDeleteModuleOfUniversity {
+public class TestUpdateModuleOfUniversity {
 
     private DemoRestClient client;
     private final String UNIVERSITY_NAME = "Test University";
@@ -23,7 +23,8 @@ public class TestDeleteModuleOfUniversity {
         this.client.resetDatabase();
     }
 
-    @Test void test_delete_module_of_university() throws IOException {
+    @Test
+    void test_update_module_of_university() throws IOException {
         client.start();
         var university = getUniversityClientModel();
         university.setName(UNIVERSITY_NAME);
@@ -40,9 +41,14 @@ public class TestDeleteModuleOfUniversity {
         module.setName(MODULE_NAME);
         client.createModule(university.getId(), module);
         assertEquals(201, client.getLastStatusCode());
+        long id = module.getId();
 
-        assertTrue(client.isDeleteModuleAllowed());
-        client.deleteSingleModule();
+        var updatedModule = getModuleClientModel();
+        updatedModule.setName("UPDATED NAME");
+        updatedModule.setId(id);
+
+        client.isUpdateModuleAllowed();
+        client.updateSingleModule(updatedModule);
         assertEquals(204, client.getLastStatusCode());
     }
 }

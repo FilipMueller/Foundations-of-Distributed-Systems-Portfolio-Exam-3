@@ -18,7 +18,6 @@ package de.fhws.fiw.fds.exam03;
 
 import de.fhws.fiw.fds.sutton.server.api.AbstractJerseyApplication;
 import de.fhws.fiw.fds.exam03.server.api.services.DispatcherJerseyService;
-import de.fhws.fiw.fds.exam03.server.api.services.ModuleJerseyService;
 import de.fhws.fiw.fds.exam03.server.api.services.UniversityJerseyService;
 import jakarta.ws.rs.ApplicationPath;
 
@@ -33,7 +32,6 @@ public class SuttonDemoJerseyApplication extends AbstractJerseyApplication {
         final Set<Class<?>> returnValue = new HashSet<>();
 
         returnValue.add(UniversityJerseyService.class);
-        returnValue.add(ModuleJerseyService.class);
         returnValue.add(DispatcherJerseyService.class);
 
         return returnValue;

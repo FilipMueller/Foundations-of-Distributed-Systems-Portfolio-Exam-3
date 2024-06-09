@@ -6,6 +6,7 @@ import de.fhws.fiw.fds.sutton.client.rest2.AbstractRestClient;
 import de.fhws.fiw.fds.exam03.client.models.ModuleClientModel;
 import de.fhws.fiw.fds.exam03.client.models.UniversityClientModel;
 import de.fhws.fiw.fds.exam03.client.web.UniversityWebClient;
+import org.jetbrains.annotations.NotNull;
 
 import java.io.IOException;
 import java.util.Collections;
@@ -54,6 +55,7 @@ public class DemoRestClient extends AbstractRestClient {
     public void createUniversity(UniversityClientModel university) throws IOException {
         if (isCreateUniversityAllowed()) {
             processResponse(this.client.postNewUniversity(getUrl(CREATE_UNIVERSITY), university), (response) -> {
+                university.setId(getIdFromURL(response.getResponseHeaders().value(0)));
                 this.currentUniversityData = Collections.EMPTY_LIST;
                 this.cursorUniversityData = 0;
             });
@@ -149,6 +151,21 @@ public class DemoRestClient extends AbstractRestClient {
         return !this.currentUniversityData.isEmpty() || isLocationHeaderAvailable();
     }
 
+    public void updateSingleUniversity(UniversityClientModel university) throws IOException {
+        if (isUpdateUniversityAllowed()) {
+            updateSingleUniversity(getLocationHeaderURL(), university);
+        } else {
+            throw new IllegalStateException("Update operation not allowed.");
+        }
+    }
+
+    public void updateSingleUniversity(String universityUrl, UniversityClientModel university) throws IOException {
+        processResponse(this.client.putUniversity(universityUrl, university), (response) -> {
+        });
+    }
+
+
+
 
 
 
@@ -157,19 +174,20 @@ public class DemoRestClient extends AbstractRestClient {
     }
 
     public void createModule(long universityId, ModuleClientModel module) throws IOException {
-        String createModuleUrl = BASE_URL + "/" + universityId + "/" + CREATE_MODULE;
+        String createModuleUrl = BASE_URL + "/universities/" + universityId + "/modules";
         processResponse(this.webClient.postNewModule(createModuleUrl, module), (response) -> {
-            this.currentModuleData = Collections.emptyList();
+            module.setId(getIdFromURL(response.getResponseHeaders().value(0)));
+            this.currentModuleData = Collections.EMPTY_LIST;
             this.cursorModuleData = 0;
         });
     }
 
-    public boolean isGetModulesAllowed() {
+    public boolean isGetAllModulesAllowed() {
         return isLinkAvailable(GET_MODULES);
     }
 
-    public void getModules(long universityId) throws IOException {
-        String getModulesUrl = BASE_URL + "/" + universityId + "/" + GET_MODULES;
+    public void getAllModules(long universityId) throws IOException {
+        String getModulesUrl = BASE_URL + "/universities/" + universityId + "/modules";
         processResponse(this.webClient.getCollectionOfModules(getModulesUrl), (response) -> {
             this.currentModuleData = new LinkedList<>(response.getResponseData());
             this.cursorModuleData = 0;
@@ -192,4 +210,71 @@ public class DemoRestClient extends AbstractRestClient {
         }
     }
 
+    public void getSingleModule() throws IOException {
+        if (isLocationHeaderAvailable()) {
+            getSingleModule(getLocationHeaderURL());
+        } else if (!this.currentModuleData.isEmpty()) {
+            getSingleModule(this.cursorModuleData);
+        } else {
+            throw new IllegalStateException();
+        }
+    }
+
+    public void getSingleModule(int index) throws IOException {
+        getSingleModule(this.currentModuleData.get(index).getSelfLink().getUrl());
+    }
+
+    private void getSingleModule(String url) throws IOException {
+        processResponse(this.webClient.getSingleModule(url), (response) -> {
+            this.currentModuleData = new LinkedList(response.getResponseData());
+            this.cursorModuleData = 0;
+        });
+    }
+
+    public boolean isDeleteModuleAllowed() {
+        return !this.currentModuleData.isEmpty() || isLocationHeaderAvailable();
+    }
+
+    public void deleteSingleModule() throws IOException {
+        if (isLocationHeaderAvailable()) {
+            deleteSingleModule(getLocationHeaderURL());
+        } else if (!this.currentModuleData.isEmpty()) {
+            deleteSingleModule(this.cursorModuleData);
+        } else {
+            throw new IllegalStateException();
+        }
+    }
+
+    public void deleteSingleModule(int index) throws IOException {
+        deleteSingleModule(this.currentModuleData.get(index).getSelfLink().getUrl());
+    }
+
+    private void deleteSingleModule(String url) throws IOException {
+        processResponse(this.webClient.deleteModule(url), (response) -> {
+        });
+    }
+
+    public boolean isUpdateModuleAllowed() {
+        return !this.currentModuleData.isEmpty() || isLocationHeaderAvailable();
+    }
+
+    public void updateSingleModule(ModuleClientModel module) throws IOException {
+        if (isUpdateModuleAllowed()) {
+            updateSingleModule(getLocationHeaderURL(), module);
+        } else {
+            throw new IllegalStateException("Update operation not allowed.");
+        }
+    }
+
+    public void updateSingleModule(String moduleUrl, ModuleClientModel module) throws IOException {
+        processResponse(this.webClient.putModule(moduleUrl, module), (response) -> {
+        });
+    }
+
+
+    private long getIdFromURL(@NotNull String url) {
+        String[] parts = url.split("/");
+        String lastPart = parts[parts.length - 1];
+        return Integer.parseInt(lastPart);
+    }
 }

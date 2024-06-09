@@ -8,7 +8,7 @@ import java.io.IOException;
 
 public class UniversityWebClient {
 
-    private GenericWebClient<UniversityClientModel> client;
+    private final GenericWebClient<UniversityClientModel> client;
 
     public UniversityWebClient() {
         this.client = new GenericWebClient<>();
@@ -28,13 +28,13 @@ public class UniversityWebClient {
         return createResponse(this.client.sendGetCollectionRequest(url, UniversityClientModel.class));
     }
 
-    public UniversityWebResponse postNewUniversity(String url, UniversityClientModel person)
+    public UniversityWebResponse postNewUniversity(String url, UniversityClientModel university)
             throws IOException {
-        return createResponse(this.client.sendPostRequest(url, person));
+        return createResponse(this.client.sendPostRequest(url, university));
     }
 
-    public UniversityWebResponse putUniversity(String url, UniversityClientModel person) throws IOException {
-        return createResponse(this.client.sendPutRequest(url, person));
+    public UniversityWebResponse putUniversity(String url, UniversityClientModel university) throws IOException {
+        return createResponse(this.client.sendPutRequest(url, university));
     }
 
     public UniversityWebResponse deleteUniversity(String url) throws IOException {

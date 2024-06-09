@@ -76,6 +76,8 @@ public class TestDemoAppIT {
 
             var university = getUniversityClientModel();
 
+            assertTrue(client.isCreateUniversityAllowed());
+
             client.createUniversity(university);
             assertEquals(201, client.getLastStatusCode());
         }

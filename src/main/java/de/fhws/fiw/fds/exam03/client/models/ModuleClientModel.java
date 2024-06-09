@@ -10,7 +10,7 @@ public class ModuleClientModel extends AbstractClientModel {
 
     private int semester;
 
-    private int creditPoints;
+    private float creditPoints;
 
     @JsonDeserialize(using = ClientLinkJsonConverter.class)
     private transient Link selfLinkOnSecond;

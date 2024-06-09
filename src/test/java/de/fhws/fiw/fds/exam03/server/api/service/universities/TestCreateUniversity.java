@@ -20,18 +20,13 @@ public class TestCreateUniversity {
         this.client.resetDatabase();
     }
 
-    @Test
-    public void test_create_university_is_create_university_allowed() throws IOException {
-        client.start();
-        assertTrue(client.isCreateUniversityAllowed());
-    }
-
     @Test void test_create_university() throws IOException
     {
         client.start();
 
         var university = getUniversityClientModel();
 
+        assertTrue(client.isCreateUniversityAllowed());
         client.createUniversity(university);
         assertEquals(201, client.getLastStatusCode());
     }

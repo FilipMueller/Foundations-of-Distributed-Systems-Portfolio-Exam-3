@@ -17,7 +17,7 @@ public class Module extends AbstractModel {
 
     private int semester;
 
-    private int creditPoints;
+    private float creditPoints;
 
     @SecondarySelfLink(
             primaryPathElement = "universities",
@@ -32,7 +32,7 @@ public class Module extends AbstractModel {
         // make JPA happy
     }
 
-    public Module(final String cityName, final int semester, final int creditPoints) {
+    public Module(final String cityName, final int semester, final float creditPoints) {
         this.name = cityName;
         this.semester = semester;
         this.creditPoints = creditPoints;
@@ -74,7 +74,7 @@ public class Module extends AbstractModel {
         return creditPoints;
     }
 
-    public void setCreditPoints(final int creditPoints) {
+    public void setCreditPoints(final float creditPoints) {
         this.creditPoints = creditPoints;
     }
 }

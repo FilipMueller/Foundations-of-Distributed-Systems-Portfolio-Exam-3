@@ -25,8 +25,8 @@ public class CreateModels {
     public static @NotNull ModuleClientModel getModuleClientModel() {
         var module = new ModuleClientModel();
         module.setName("Introduction to Quantum Computing");
-        module.setSemester(1); // 1 for spring, 2 for autumn
-        module.setCreditPoints(5); // Assuming credit points as 5
+        module.setSemester(1);
+        module.setCreditPoints(5);
         return module;
     }
 }

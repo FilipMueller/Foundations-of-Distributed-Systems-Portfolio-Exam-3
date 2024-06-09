@@ -34,7 +34,7 @@ public class GetSingleModuleOfUniversity extends AbstractGetRelationState<Respon
     @Override protected SingleModelResult<Module> loadModel( )
     {
         SingleModelResult<Module> location = DaoFactory.getInstance( ).getModuleDao( ).readById( this.requestedId );
-        if(isPersonLinkedToThisLocation()) {
+        if(isUniversityLinkedToThisModule()) {
             location.getResult().setPrimaryId(this.primaryId);
         }
         return location;
@@ -47,7 +47,7 @@ public class GetSingleModuleOfUniversity extends AbstractGetRelationState<Respon
                 getAcceptRequestHeader( ),
                 this.primaryId );
 
-        if ( isPersonLinkedToThisLocation( ) )
+        if ( isUniversityLinkedToThisModule( ) )
         {
             addLink( UniversityModuleUri.REL_PATH_ID,
                     UniversityModuleRelTypes.UPDATE_SINGLE_MODULE,
@@ -55,20 +55,13 @@ public class GetSingleModuleOfUniversity extends AbstractGetRelationState<Respon
                     this.primaryId, this.requestedId );
 
             addLink( UniversityModuleUri.REL_PATH_ID,
-                    UniversityModuleRelTypes.DELETE_LINK_FROM_UNIVERSITY_TO_MODULE,
-                    getAcceptRequestHeader( ),
-                    this.primaryId, this.requestedId );
-        }
-        else
-        {
-            addLink( UniversityModuleUri.REL_PATH_ID,
-                    UniversityModuleRelTypes.CREATE_LINK_FROM_UNIVERSITY_TO_MODULE,
+                    UniversityModuleRelTypes.DELETE_MODULE_FROM_UNIVERSITY,
                     getAcceptRequestHeader( ),
                     this.primaryId, this.requestedId );
         }
     }
 
-    private boolean isPersonLinkedToThisLocation( )
+    private boolean isUniversityLinkedToThisModule( )
     {
         return !DaoFactory.getInstance( )
                 .getUniversityModuleDao( )
