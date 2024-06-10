@@ -33,5 +33,6 @@ public class GetAllUniversities extends AbstractGetCollectionState<Response, Uni
     @Override
     protected void defineTransitionLinks() {
         addLink(UniversityUri.REL_PATH, UniversityRelTypes.CREATE_UNIVERSITY, getAcceptRequestHeader());
+        addLink(UniversityUri.REL_PATH_ID, UniversityRelTypes.GET_SINGLE_UNIVERSITY, getAcceptRequestHeader());
     }
 }

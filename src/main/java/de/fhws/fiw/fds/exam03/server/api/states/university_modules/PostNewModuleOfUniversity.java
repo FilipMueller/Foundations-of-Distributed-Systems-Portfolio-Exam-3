@@ -16,16 +16,22 @@ public class PostNewModuleOfUniversity extends AbstractPostRelationState<Respons
     }
 
 
-    @Override protected NoContentResult saveModel( )
-    {
-        return DaoFactory.getInstance( ).getUniversityModuleDao( ).create( this.primaryId, this.modelToStore );
+    @Override
+    protected NoContentResult saveModel() {
+        return DaoFactory.getInstance().getUniversityModuleDao().create(this.primaryId, this.modelToStore);
     }
 
-    @Override protected void defineTransitionLinks( )
-    {
+    @Override
+    protected void defineTransitionLinks() {
         addLink(UniversityModuleUri.REL_PATH,
                 UniversityModuleRelTypes.GET_ALL_LINKED_MODULES,
                 getAcceptRequestHeader(),
                 this.primaryId);
+
+        addLink(UniversityModuleUri.REL_PATH_ID,
+                UniversityModuleRelTypes.GET_SINGLE_MODULE,
+                getAcceptRequestHeader(),
+                this.primaryId,
+                this.modelToStore.getId());
     }
 }

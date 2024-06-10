@@ -55,13 +55,12 @@ public class GetSingleUniversity extends AbstractGetState<Response, University> 
 
     @Override
     protected void defineTransitionLinks() {
-        addLink( UniversityUri.REL_PATH_ID, UniversityRelTypes.UPDATE_SINGLE_UNIVERSITY, getAcceptRequestHeader( ),
-                this.requestedId );
-        addLink( UniversityUri.REL_PATH_ID, UniversityRelTypes.DELETE_SINGLE_UNIVERSITY, getAcceptRequestHeader( ),
-                this.requestedId );
-        addLink( UniversityModuleUri.REL_PATH, UniversityModuleRelTypes.CREATE_MODULE, getAcceptRequestHeader( ),
-                this.requestedId );
-        addLink( UniversityModuleUri.REL_PATH, UniversityModuleRelTypes.GET_ALL_LINKED_MODULES, getAcceptRequestHeader( ),
-                this.requestedId );
+        addLink(UniversityUri.REL_PATH_ID, UniversityRelTypes.GET_ALL_UNIVERSITIES, getAcceptRequestHeader());
+        addLink(UniversityUri.REL_PATH_ID, UniversityRelTypes.UPDATE_SINGLE_UNIVERSITY, getAcceptRequestHeader(),
+                this.requestedId);
+        addLink(UniversityUri.REL_PATH_ID, UniversityRelTypes.DELETE_SINGLE_UNIVERSITY, getAcceptRequestHeader(),
+                this.requestedId);
+        addLink(UniversityModuleUri.REL_PATH, UniversityModuleRelTypes.GET_ALL_LINKED_MODULES, getAcceptRequestHeader(),
+                this.requestedId);
     }
 }

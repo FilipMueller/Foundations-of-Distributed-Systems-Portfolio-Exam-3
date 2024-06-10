@@ -22,37 +22,26 @@ import de.fhws.fiw.fds.sutton.server.database.results.CollectionModelResult;
 import de.fhws.fiw.fds.exam03.server.api.models.University;
 import de.fhws.fiw.fds.exam03.server.database.DaoFactory;
 
-public class QueryByFirstAndLastName<R> extends AbstractQuery<R, University> {
+public class QueryByUniversityName<R> extends AbstractQuery<R, University> {
 
-    private String firstName;
-    private String lastName;
+    private String universityName;
 
-    public QueryByFirstAndLastName(String firstName, String lastName, int offset, int size) {
-        this.firstName = firstName;
-        this.lastName = lastName;
+    public QueryByUniversityName(String universityName, int offset, int size) {
+        this.universityName = universityName;
         this.pagingBehavior = new PagingBehaviorUsingOffsetSize<>(offset, size);
     }
 
-    public String getFirstName() {
-        return this.firstName;
+    public String getUniversityName() {
+        return this.universityName;
     }
 
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
-    }
-
-    public String getLastName() {
-        return this.lastName;
-    }
-
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
+    public void setUniversityName(String universityName) {
+        this.universityName = universityName;
     }
 
     protected CollectionModelResult<University> doExecuteQuery(SearchParameter searchParameter) throws DatabaseException {
-        return DaoFactory.getInstance().getUniversityDao().readByFirstNameAndLastName(
-                this.firstName,
-                this.lastName,
+        return DaoFactory.getInstance().getUniversityDao().readByUniversityName(
+                this.universityName,
                 searchParameter);
     }
 

@@ -38,6 +38,8 @@ public class PostNewUniversity extends AbstractPostState<Response, University> {
 
     @Override
     protected void defineTransitionLinks() {
+        addLink(UniversityUri.REL_PATH_ID, UniversityRelTypes.GET_SINGLE_UNIVERSITY, getAcceptRequestHeader(), this.modelToStore.getId());
+        addLink(UniversityUri.REL_PATH, UniversityRelTypes.GET_ALL_UNIVERSITIES, getAcceptRequestHeader());
 
     }
 }

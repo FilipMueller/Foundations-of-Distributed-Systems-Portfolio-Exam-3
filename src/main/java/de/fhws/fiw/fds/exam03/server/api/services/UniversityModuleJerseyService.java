@@ -18,7 +18,7 @@ import de.fhws.fiw.fds.sutton.server.api.serviceAdapters.Exceptions.SuttonWebApp
 import de.fhws.fiw.fds.sutton.server.api.services.AbstractJerseyService;
 import de.fhws.fiw.fds.exam03.server.api.models.Module;
 import de.fhws.fiw.fds.exam03.server.api.models.University;
-import de.fhws.fiw.fds.exam03.server.api.queries.QueryByFirstAndLastName;
+import de.fhws.fiw.fds.exam03.server.api.queries.QueryByUniversityName;
 import de.fhws.fiw.fds.exam03.server.api.queries.QueryByModuleName;
 import de.fhws.fiw.fds.exam03.server.api.states.university_modules.*;
 import de.fhws.fiw.fds.exam03.server.api.states.universities.*;
@@ -27,23 +27,22 @@ import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
 
 @Path("universities")
-public class UniversityJerseyService extends AbstractJerseyService {
+public class UniversityModuleJerseyService extends AbstractJerseyService {
 
-    public UniversityJerseyService() {
+    public UniversityModuleJerseyService() {
         super();
     }
 
     @GET
     @Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
     public Response getAllUniversities(
-            @DefaultValue("") @QueryParam("firstname") final String firstName,
-            @DefaultValue("") @QueryParam("lastname") final String lastName,
+            @DefaultValue("") @QueryParam("universityName") final String universityName,
             @DefaultValue("0") @QueryParam("offset") int offset,
             @DefaultValue("20") @QueryParam("size") int size) {
         try {
             return new GetAllUniversities(
                     this.serviceContext,
-                    new QueryByFirstAndLastName<>(firstName, lastName, offset, size)
+                    new QueryByUniversityName<>(universityName, offset, size)
             ).execute();
         } catch (SuttonWebAppException e) {
             throw new WebApplicationException(e.getExceptionMessage(), e.getStatus().getCode());
@@ -102,11 +101,11 @@ public class UniversityJerseyService extends AbstractJerseyService {
     @Path("{universityId: \\d+}/modules")
     @Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
     public Response getModulesOfUniversity(@PathParam("universityId") final long universityId,
-                                           @DefaultValue("") @QueryParam("cityname") final String cityName,
+                                           @DefaultValue("") @QueryParam("modulename") final String moduleName,
                                            @DefaultValue("0") @QueryParam("offset") int offset,
                                            @DefaultValue("20") @QueryParam("size") int size) {
         try {
-            return new GetAllModulesOfUniversity(this.serviceContext, universityId, new QueryByModuleName<>(universityId, cityName, offset, size)).execute();
+            return new GetAllModulesOfUniversity(this.serviceContext, universityId, new QueryByModuleName<>(universityId, moduleName, offset, size)).execute();
         } catch (SuttonWebAppException e) {
             throw new WebApplicationException(Response.status(e.getStatus().getCode())
                     .entity(e.getExceptionMessage()).build());

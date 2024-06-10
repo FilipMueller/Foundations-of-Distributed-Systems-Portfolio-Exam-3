@@ -16,14 +16,18 @@
 
 package de.fhws.fiw.fds.exam03.server.api.states.universities;
 
+import de.fhws.fiw.fds.exam03.server.api.models.Module;
 import de.fhws.fiw.fds.sutton.server.api.serviceAdapters.responseAdapter.JerseyResponse;
 import de.fhws.fiw.fds.sutton.server.api.services.ServiceContext;
 import de.fhws.fiw.fds.sutton.server.api.states.delete.AbstractDeleteState;
+import de.fhws.fiw.fds.sutton.server.database.results.CollectionModelResult;
 import de.fhws.fiw.fds.sutton.server.database.results.NoContentResult;
 import de.fhws.fiw.fds.sutton.server.database.results.SingleModelResult;
 import de.fhws.fiw.fds.exam03.server.api.models.University;
 import de.fhws.fiw.fds.exam03.server.database.DaoFactory;
 import jakarta.ws.rs.core.Response;
+
+import java.util.List;
 
 public class DeleteSingleUniversity extends AbstractDeleteState<Response, University> {
 
@@ -39,12 +43,16 @@ public class DeleteSingleUniversity extends AbstractDeleteState<Response, Univer
 
     @Override
     protected NoContentResult deleteModel() {
+        List<Module> modules = DaoFactory.getInstance().getUniversityModuleDao().readByUniversityId(this.modelIdToDelete);
+        for (Module module : modules) {
+            DaoFactory.getInstance().getModuleDao().delete(module.getId());
+        }
+
         return DaoFactory.getInstance().getUniversityDao().delete(this.modelIdToDelete);
     }
 
     @Override
     protected void defineTransitionLinks() {
-
+        addLink(UniversityUri.REL_PATH, UniversityRelTypes.GET_ALL_UNIVERSITIES, getAcceptRequestHeader());
     }
-
 }

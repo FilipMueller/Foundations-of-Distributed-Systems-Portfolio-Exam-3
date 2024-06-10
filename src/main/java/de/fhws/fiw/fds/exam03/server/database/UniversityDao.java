@@ -21,8 +21,8 @@ import de.fhws.fiw.fds.exam03.server.api.models.University;
 
 public interface UniversityDao extends IDatabaseAccessObject<University> {
 
-    CollectionModelResult<University> readByFirstNameAndLastName(String firstName, String lastName,
-                                                                 SearchParameter searchParameter);
+    CollectionModelResult<University> readByUniversityName(String universityName,
+                                                           SearchParameter searchParameter);
 
     void resetDatabase();
 }

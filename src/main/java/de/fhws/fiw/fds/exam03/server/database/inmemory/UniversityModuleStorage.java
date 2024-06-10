@@ -9,6 +9,9 @@ import de.fhws.fiw.fds.exam03.server.api.models.Module;
 import de.fhws.fiw.fds.exam03.server.database.ModuleDao;
 import de.fhws.fiw.fds.exam03.server.database.UniversityModuleDao;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 public class UniversityModuleStorage extends AbstractInMemoryRelationStorage<Module> implements UniversityModuleDao {
     final private ModuleDao moduleStorage;
 
@@ -22,11 +25,16 @@ public class UniversityModuleStorage extends AbstractInMemoryRelationStorage<Mod
     }
 
     @Override
-    public CollectionModelResult<Module> readByCityName(long primaryId, String cityName, SearchParameter searchParameter) {
+    public CollectionModelResult<Module> readByModuleName(long primaryId, String moduleName, SearchParameter searchParameter) {
         return InMemoryPaging.page(
-                this.readAllLinkedByPredicate(primaryId, (p) -> cityName.isEmpty() || p.getName().equals(cityName)),
+                this.readAllLinkedByPredicate(primaryId, (p) -> moduleName.isEmpty() || p.getName().equals(moduleName)),
                 searchParameter.getOffset(), searchParameter.getSize()
         );
+    }
+
+    @Override
+    public List<Module> readByUniversityId(long universityId) {
+        return this.readAllLinkedByPredicate(universityId, (p) -> true).getResult().stream().toList();
     }
 
     @Override

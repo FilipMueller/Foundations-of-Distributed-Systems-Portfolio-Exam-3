@@ -43,7 +43,6 @@ public class DemoRestClient extends AbstractRestClient {
     }
 
     public void start() throws IOException {
-
         processResponse(this.client.getDispatcher(BASE_URL), (response) -> {
         });
     }

@@ -31,41 +31,26 @@ public class GetSingleModuleOfUniversity extends AbstractGetRelationState<Respon
         this.suttonResponse.cacheControl(CachingUtils.create30SecondsPublicCaching());
     }
 
-    @Override protected SingleModelResult<Module> loadModel( )
-    {
-        SingleModelResult<Module> location = DaoFactory.getInstance( ).getModuleDao( ).readById( this.requestedId );
-        if(isUniversityLinkedToThisModule()) {
-            location.getResult().setPrimaryId(this.primaryId);
-        }
-        return location;
+    @Override
+    protected SingleModelResult<Module> loadModel() {
+        return DaoFactory.getInstance().getModuleDao().readById(this.requestedId);
     }
 
-    @Override protected void defineTransitionLinks( )
-    {
-        addLink( UniversityModuleUri.REL_PATH_SHOW_ONLY_LINKED,
+    @Override
+    protected void defineTransitionLinks() {
+        addLink(UniversityModuleUri.REL_PATH_SHOW_ONLY_LINKED,
                 UniversityModuleRelTypes.GET_ALL_LINKED_MODULES,
-                getAcceptRequestHeader( ),
-                this.primaryId );
+                getAcceptRequestHeader(),
+                this.primaryId);
 
-        if ( isUniversityLinkedToThisModule( ) )
-        {
-            addLink( UniversityModuleUri.REL_PATH_ID,
-                    UniversityModuleRelTypes.UPDATE_SINGLE_MODULE,
-                    getAcceptRequestHeader( ),
-                    this.primaryId, this.requestedId );
+        addLink(UniversityModuleUri.REL_PATH_ID,
+                UniversityModuleRelTypes.UPDATE_SINGLE_MODULE,
+                getAcceptRequestHeader(),
+                this.primaryId, this.requestedId);
 
-            addLink( UniversityModuleUri.REL_PATH_ID,
-                    UniversityModuleRelTypes.DELETE_MODULE_FROM_UNIVERSITY,
-                    getAcceptRequestHeader( ),
-                    this.primaryId, this.requestedId );
-        }
-    }
-
-    private boolean isUniversityLinkedToThisModule( )
-    {
-        return !DaoFactory.getInstance( )
-                .getUniversityModuleDao( )
-                .readById( this.primaryId, this.requestedId )
-                .isEmpty( );
+        addLink(UniversityModuleUri.REL_PATH_ID,
+                UniversityModuleRelTypes.DELETE_MODULE_FROM_UNIVERSITY,
+                getAcceptRequestHeader(),
+                this.primaryId, this.requestedId);
     }
 }

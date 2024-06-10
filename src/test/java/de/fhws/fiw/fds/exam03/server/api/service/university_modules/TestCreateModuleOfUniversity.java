@@ -32,6 +32,9 @@ public class TestCreateModuleOfUniversity {
         client.getSingleUniversity();
         assertEquals(200, client.getLastStatusCode());
 
+        client.getAllModules(university.getId());
+        assertEquals(200, client.getLastStatusCode());
+
         assertTrue(client.isCreateModuleAllowed(), "Creating module is not allowed.");
 
         var module = getModuleClientModel();

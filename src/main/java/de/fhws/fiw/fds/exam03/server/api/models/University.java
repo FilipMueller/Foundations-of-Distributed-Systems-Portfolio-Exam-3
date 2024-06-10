@@ -53,7 +53,6 @@ public class University extends AbstractModel {
     private transient Link module;
 
     public University() {
-        // make JPA happy
     }
 
     public University(final String name, final String country, final String departmentName, final String departmentUrl,

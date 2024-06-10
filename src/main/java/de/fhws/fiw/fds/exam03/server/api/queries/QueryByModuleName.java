@@ -10,22 +10,22 @@ import de.fhws.fiw.fds.exam03.server.database.DaoFactory;
 
 public class QueryByModuleName<R> extends AbstractRelationQuery<R, Module> {
 
-    private String cityName;
+    private String moduleName;
 
     private int waitingTime;
 
-    public QueryByModuleName(long primaryId, String cityName, int offset, int size) {
+    public QueryByModuleName(long primaryId, String moduleName, int offset, int size) {
         super(primaryId);
-        this.cityName = cityName;
+        this.moduleName = moduleName;
         this.pagingBehavior = new PagingBehaviorUsingOffsetSize<>(offset, size);
     }
 
-    public String getCityName() {
-        return cityName;
+    public String getModuleName() {
+        return moduleName;
     }
 
-    public void setCityName(String cityName) {
-        this.cityName = cityName;
+    public void setModuleName(String moduleName) {
+        this.moduleName = moduleName;
     }
 
     public int getWaitingTime() {
@@ -38,6 +38,6 @@ public class QueryByModuleName<R> extends AbstractRelationQuery<R, Module> {
 
     @Override
     protected CollectionModelResult<Module> doExecuteQuery(SearchParameter searchParameter) throws DatabaseException {
-        return DaoFactory.getInstance().getUniversityModuleDao().readByCityName(this.primaryId, this.cityName, searchParameter);
+        return DaoFactory.getInstance().getUniversityModuleDao().readByModuleName(this.primaryId, this.moduleName, searchParameter);
     }
 }

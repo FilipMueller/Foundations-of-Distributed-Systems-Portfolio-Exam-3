@@ -1,5 +1,7 @@
 package de.fhws.fiw.fds.exam03.server.api.states.university_modules;
 
+import de.fhws.fiw.fds.exam03.server.api.states.universities.UniversityRelTypes;
+import de.fhws.fiw.fds.exam03.server.api.states.universities.UniversityUri;
 import de.fhws.fiw.fds.sutton.server.api.queries.AbstractRelationQuery;
 import de.fhws.fiw.fds.sutton.server.api.serviceAdapters.responseAdapter.JerseyResponse;
 import de.fhws.fiw.fds.sutton.server.api.services.ServiceContext;
@@ -21,11 +23,14 @@ public class GetAllModulesOfUniversity extends AbstractGetCollectionRelationStat
                 getAcceptRequestHeader(),
                 this.primaryId);
 
-
-        addLink(UniversityModuleUri.REL_PATH_SHOW_ALL,
-                UniversityModuleRelTypes.GET_ALL_MODULES,
+        addLink(UniversityModuleUri.REL_PATH_ID,
+                UniversityModuleRelTypes.GET_SINGLE_MODULE,
                 getAcceptRequestHeader(),
                 this.primaryId);
 
+        addLink(UniversityUri.REL_PATH_ID,
+                UniversityRelTypes.GET_SINGLE_UNIVERSITY,
+                getAcceptRequestHeader(),
+                this.primaryId);
     }
 }
