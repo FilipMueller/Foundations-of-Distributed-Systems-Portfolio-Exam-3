@@ -19,7 +19,6 @@ public class UniversityWebClient {
         return createResponse( this.client.sendGetSingleRequest( url ) );
     }
 
-
     public UniversityWebResponse getSingleUniversity(String url) throws IOException {
         return createResponse(this.client.sendGetSingleRequest(url, UniversityClientModel.class));
     }

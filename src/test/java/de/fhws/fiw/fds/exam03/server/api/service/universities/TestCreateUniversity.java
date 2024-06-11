@@ -30,4 +30,25 @@ public class TestCreateUniversity {
         client.createUniversity(university);
         assertEquals(201, client.getLastStatusCode());
     }
+
+    @Test void test_create_5_universities_and_get_all() throws IOException
+    {
+        for( int i=0; i<5; i++ ) {
+            client.start();
+
+            var university = getUniversityClientModel();
+
+            assertTrue(client.isCreateUniversityAllowed());
+
+            client.createUniversity(university);
+            assertEquals(201, client.getLastStatusCode());
+        }
+
+        client.start();
+        assertTrue( client.isGetAllUniversitiesAllowed() );
+
+        client.getAllUniversities();
+        assertEquals(200, client.getLastStatusCode());
+        assertEquals(5, client.universityData().size());
+    }
 }

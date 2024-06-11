@@ -35,7 +35,7 @@ public class TestCreateModuleOfUniversity {
         client.getAllModules(university.getId());
         assertEquals(200, client.getLastStatusCode());
 
-        assertTrue(client.isCreateModuleAllowed(), "Creating module is not allowed.");
+        assertTrue(client.isCreateModuleAllowed());
 
         var module = getModuleClientModel();
         module.setName(MODULE_NAME);
@@ -47,6 +47,36 @@ public class TestCreateModuleOfUniversity {
         assertEquals(200, client.getLastStatusCode());
 
         var createdModule = client.moduleData().getFirst();
-        assertEquals(MODULE_NAME, createdModule.getName(), "Module name should match the expected value.");
+        assertEquals(MODULE_NAME, createdModule.getName());
+    }
+
+    @Test void test_create_5_modules_and_get_all() throws IOException {
+
+        client.start();
+        var university = getUniversityClientModel();
+        university.setName(UNIVERSITY_NAME);
+        client.createUniversity(university);
+        assertEquals(201, client.getLastStatusCode());
+
+        client.getSingleUniversity();
+        assertEquals(200, client.getLastStatusCode());
+
+        client.getAllModules(university.getId());
+        assertEquals(200, client.getLastStatusCode());
+
+        assertTrue(client.isCreateModuleAllowed());
+
+        for( int i=0; i<5; i++ ) {
+            client.start();
+
+            var module = getModuleClientModel();
+            client.createModule(university.getId(), module);
+            assertEquals(201, client.getLastStatusCode());
+        }
+
+        assertTrue(client.isGetAllModulesAllowed());
+        client.getAllModules(university.getId());
+        assertEquals(200, client.getLastStatusCode());
+        assertEquals(5, client.moduleData().size());
     }
 }

@@ -161,5 +161,4 @@ public class UniversityModuleJerseyService extends AbstractJerseyService {
                     .entity(e.getExceptionMessage()).build());
         }
     }
-
 }
