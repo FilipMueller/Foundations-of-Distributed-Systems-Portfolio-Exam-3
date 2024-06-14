@@ -21,7 +21,7 @@ public class TestUpdateUniversity {
     }
 
     @Test
-    void test_create_university() throws IOException
+    void test_update_university() throws IOException
     {
         client.start();
 
@@ -30,6 +30,9 @@ public class TestUpdateUniversity {
         assertTrue(client.isCreateUniversityAllowed());
         client.createUniversity(university);
         assertEquals(201, client.getLastStatusCode());
+
+        assertTrue(client.isGetSingleUniversityAllowed());
+        client.getSingleUniversity();
 
         long id = university.getId();
 

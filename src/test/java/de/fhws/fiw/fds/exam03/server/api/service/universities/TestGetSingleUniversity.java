@@ -21,7 +21,7 @@ public class TestGetSingleUniversity {
     }
 
     @Test
-    void test_create_university() throws IOException
+    void test_get_single_university() throws IOException
     {
         client.start();
 

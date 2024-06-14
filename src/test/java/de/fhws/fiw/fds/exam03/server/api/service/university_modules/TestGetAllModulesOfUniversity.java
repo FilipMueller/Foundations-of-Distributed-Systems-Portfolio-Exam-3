@@ -34,22 +34,18 @@ public class TestGetAllModulesOfUniversity {
         client.getSingleUniversity();
         assertEquals(200, client.getLastStatusCode());
 
-        client.getAllModules(university.getId());
+        client.getAllModules();
         assertEquals(200, client.getLastStatusCode());
 
-        assertTrue(client.isCreateModuleAllowed(), "Creating module is not allowed.");
-        long id = university.getId();
-
         for( int i=0; i<5; i++ ) {
-            client.start();
-
+            assertTrue(client.isCreateModuleAllowed());
             var module = getModuleClientModel();
 
-            assertTrue(client.isCreateUniversityAllowed());
-
-            client.createModule(id, module);
+            client.createModule(module);
             module.setName(MODULE_NAME);
             assertEquals(201, client.getLastStatusCode());
+            assertTrue(client.isGetAllModulesAllowed());
+            client.getAllModules();
         }
 
         client.start();
@@ -58,7 +54,7 @@ public class TestGetAllModulesOfUniversity {
         assertEquals(200, client.getLastStatusCode());
 
         assertTrue(client.isGetAllModulesAllowed());
-        client.getAllModules(id);
+        client.getAllModules();
         assertEquals(200, client.getLastStatusCode());
     }
 }

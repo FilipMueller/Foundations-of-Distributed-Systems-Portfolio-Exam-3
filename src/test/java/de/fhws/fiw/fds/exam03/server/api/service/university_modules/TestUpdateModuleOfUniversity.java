@@ -35,22 +35,23 @@ public class TestUpdateModuleOfUniversity {
         client.getSingleUniversity();
         assertEquals(200, client.getLastStatusCode());
 
-        client.getAllModules(university.getId());
+        client.getAllModules();
         assertEquals(200, client.getLastStatusCode());
 
-        assertTrue(client.isCreateModuleAllowed(), "Creating module is not allowed.");
+        assertTrue(client.isCreateModuleAllowed());
 
         var module = getModuleClientModel();
         module.setName(MODULE_NAME);
-        client.createModule(university.getId(), module);
+        client.createModule(module);
         assertEquals(201, client.getLastStatusCode());
-        long id = module.getId();
 
         var updatedModule = getModuleClientModel();
         updatedModule.setName("UPDATED NAME");
-        updatedModule.setId(id);
 
-        client.isUpdateModuleAllowed();
+        assertTrue(client.isGetSingleModuleAllowed());
+        client.getSingleModule();
+
+        assertTrue(client.isUpdateModuleAllowed());
         client.updateSingleModule(updatedModule);
         assertEquals(204, client.getLastStatusCode());
     }

@@ -41,9 +41,6 @@ public class PutSingleModuleOfUniversity extends AbstractPutRelationState<Respon
 
     @Override
     protected void defineTransitionLinks() {
-        addLink(UniversityModuleUri.REL_PATH_ID,
-                UniversityModuleRelTypes.GET_SINGLE_MODULE,
-                getAcceptRequestHeader(),
-                this.primaryId, this.requestedId);
+        addLink(UniversityModuleUri.REL_PATH_ID, UniversityModuleRelTypes.GET_SINGLE_MODULE, getAcceptRequestHeader(), this.primaryId, this.requestedId);
     }
 }

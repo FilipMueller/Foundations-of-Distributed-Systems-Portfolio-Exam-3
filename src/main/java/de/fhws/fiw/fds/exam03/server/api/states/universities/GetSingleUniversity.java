@@ -55,7 +55,7 @@ public class GetSingleUniversity extends AbstractGetState<Response, University> 
 
     @Override
     protected void defineTransitionLinks() {
-        addLink(UniversityUri.REL_PATH_ID, UniversityRelTypes.GET_ALL_UNIVERSITIES, getAcceptRequestHeader());
+        addLink(UniversityUri.REL_PATH, UniversityRelTypes.GET_ALL_UNIVERSITIES, getAcceptRequestHeader());
         addLink(UniversityUri.REL_PATH_ID, UniversityRelTypes.UPDATE_SINGLE_UNIVERSITY, getAcceptRequestHeader(),
                 this.requestedId);
         addLink(UniversityUri.REL_PATH_ID, UniversityRelTypes.DELETE_SINGLE_UNIVERSITY, getAcceptRequestHeader(),

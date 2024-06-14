@@ -35,14 +35,14 @@ public class TestGetSingleModuleOfUniversity {
         client.getSingleUniversity();
         assertEquals(200, client.getLastStatusCode());
 
-        client.getAllModules(university.getId());
+        client.getAllModules();
         assertEquals(200, client.getLastStatusCode());
 
         assertTrue(client.isCreateModuleAllowed());
 
         var module = getModuleClientModel();
         module.setName(MODULE_NAME);
-        client.createModule(university.getId(), module);
+        client.createModule(module);
         assertEquals(201, client.getLastStatusCode());
 
         client.getSingleModule();

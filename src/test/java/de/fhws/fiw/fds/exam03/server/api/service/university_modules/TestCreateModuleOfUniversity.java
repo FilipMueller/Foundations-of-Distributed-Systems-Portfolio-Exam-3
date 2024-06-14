@@ -32,18 +32,18 @@ public class TestCreateModuleOfUniversity {
         client.getSingleUniversity();
         assertEquals(200, client.getLastStatusCode());
 
-        client.getAllModules(university.getId());
+        client.getAllModules();
         assertEquals(200, client.getLastStatusCode());
 
         assertTrue(client.isCreateModuleAllowed());
 
         var module = getModuleClientModel();
         module.setName(MODULE_NAME);
-        client.createModule(university.getId(), module);
+        client.createModule(module);
         assertEquals(201, client.getLastStatusCode());
 
         assertTrue(client.isGetAllModulesAllowed());
-        client.getAllModules(university.getId());
+        client.getAllModules();
         assertEquals(200, client.getLastStatusCode());
 
         var createdModule = client.moduleData().getFirst();
@@ -61,22 +61,21 @@ public class TestCreateModuleOfUniversity {
         client.getSingleUniversity();
         assertEquals(200, client.getLastStatusCode());
 
-        client.getAllModules(university.getId());
+        assertTrue(client.isGetAllModulesAllowed());
+        client.getAllModules();
         assertEquals(200, client.getLastStatusCode());
 
         assertTrue(client.isCreateModuleAllowed());
 
         for( int i=0; i<5; i++ ) {
-            client.start();
-
+            assertTrue(client.isCreateModuleAllowed());
             var module = getModuleClientModel();
-            client.createModule(university.getId(), module);
+            client.createModule(module);
             assertEquals(201, client.getLastStatusCode());
+            assertTrue(client.isGetAllModulesAllowed());
+            client.getAllModules();
         }
 
-        assertTrue(client.isGetAllModulesAllowed());
-        client.getAllModules(university.getId());
-        assertEquals(200, client.getLastStatusCode());
         assertEquals(5, client.moduleData().size());
     }
 }

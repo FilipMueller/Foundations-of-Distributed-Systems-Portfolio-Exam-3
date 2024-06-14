@@ -90,10 +90,6 @@ public class TestDemoAppIT {
         assertEquals(200, client.getLastStatusCode());
         assertEquals(5, client.universityData().size());
 
-        /* Set the cursor to the first person, not really necessary, but to make it clear here */
-        client.setUniversityCursor(0);
-        client.getSingleUniversity();
-        assertEquals(200, client.getLastStatusCode());
     }
 
     @Test void test_create_university_and_delete_university() throws IOException

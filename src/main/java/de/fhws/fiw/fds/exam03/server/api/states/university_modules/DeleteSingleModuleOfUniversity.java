@@ -9,6 +9,8 @@ import de.fhws.fiw.fds.exam03.server.api.models.Module;
 import de.fhws.fiw.fds.exam03.server.database.DaoFactory;
 import jakarta.ws.rs.core.Response;
 
+import java.util.List;
+
 public class DeleteSingleModuleOfUniversity extends AbstractDeleteRelationState<Response, Module> {
 
     public DeleteSingleModuleOfUniversity(ServiceContext serviceContext, long modelIdToDelete, long primaryId) {
@@ -24,7 +26,7 @@ public class DeleteSingleModuleOfUniversity extends AbstractDeleteRelationState<
 
     @Override
     protected NoContentResult deleteModel() {
-        return DaoFactory.getInstance().getUniversityModuleDao().deleteRelation(this.primaryId, this.modelIdToDelete);
+        return DaoFactory.getInstance().getModuleDao().delete(this.modelIdToDelete);
     }
 
     @Override

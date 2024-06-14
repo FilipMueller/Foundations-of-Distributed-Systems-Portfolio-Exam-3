@@ -34,15 +34,18 @@ public class TestDeleteModuleOfUniversity {
         client.getSingleUniversity();
         assertEquals(200, client.getLastStatusCode());
 
-        client.getAllModules(university.getId());
+        client.getAllModules();
         assertEquals(200, client.getLastStatusCode());
 
         assertTrue(client.isCreateModuleAllowed(), "Creating module is not allowed.");
 
         var module = getModuleClientModel();
         module.setName(MODULE_NAME);
-        client.createModule(university.getId(), module);
+        client.createModule(module);
         assertEquals(201, client.getLastStatusCode());
+
+        assertTrue(client.isGetSingleModuleAllowed());
+        client.getSingleModule();
 
         assertTrue(client.isDeleteModuleAllowed());
         client.deleteSingleModule();
