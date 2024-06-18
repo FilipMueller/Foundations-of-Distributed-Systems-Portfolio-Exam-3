@@ -13,9 +13,6 @@ public class ModuleClientModel extends AbstractClientModel {
     private float creditPoints;
 
     @JsonDeserialize(using = ClientLinkJsonConverter.class)
-    private transient Link selfLinkOnSecond;
-
-    @JsonDeserialize(using = ClientLinkJsonConverter.class)
     private transient Link selfLink;
 
     public String getName() {
@@ -40,14 +37,6 @@ public class ModuleClientModel extends AbstractClientModel {
 
     public void setCreditPoints(int creditPoints) {
         this.creditPoints = creditPoints;
-    }
-
-    public Link getSelfLinkOnSecond() {
-        return selfLinkOnSecond;
-    }
-
-    public void setSelfLinkOnSecond(Link selfLinkOnSecond) {
-        this.selfLinkOnSecond = selfLinkOnSecond;
     }
 
     public Link getSelfLink() {

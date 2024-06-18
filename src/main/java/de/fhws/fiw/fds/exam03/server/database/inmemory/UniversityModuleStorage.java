@@ -9,6 +9,7 @@ import de.fhws.fiw.fds.exam03.server.api.models.Module;
 import de.fhws.fiw.fds.exam03.server.database.ModuleDao;
 import de.fhws.fiw.fds.exam03.server.database.UniversityModuleDao;
 
+import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -30,6 +31,31 @@ public class UniversityModuleStorage extends AbstractInMemoryRelationStorage<Mod
                 this.readAllLinkedByPredicate(primaryId, (p) -> moduleName.isEmpty() || p.getName().equals(moduleName)),
                 searchParameter.getOffset(), searchParameter.getSize()
         );
+    }
+
+    @Override
+    public CollectionModelResult<Module> readAllModulesByAttributeAndOrder(long primaryId, String orderByAttribute, boolean ascending, SearchParameter searchParameter) {
+        Comparator<Module> comparator;
+        switch (orderByAttribute.toLowerCase()) {
+            case "name":
+                comparator = Comparator.comparing(Module::getName, String.CASE_INSENSITIVE_ORDER);
+                break;
+            case "semester":
+                comparator = Comparator.comparing(Module::getSemester);
+                break;
+            default:
+                throw new IllegalArgumentException("Unsupported orderByAttribute: " + orderByAttribute);
+        }
+
+        if (!ascending) {
+            comparator = comparator.reversed();
+        }
+
+        List<Module> sortedModules = readByUniversityId(primaryId).stream()
+                .sorted(comparator)
+                .toList();
+
+        return InMemoryPaging.page(new CollectionModelResult<>(sortedModules), searchParameter.getOffset(), searchParameter.getSize());
     }
 
     @Override

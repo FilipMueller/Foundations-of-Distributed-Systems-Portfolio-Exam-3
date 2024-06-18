@@ -33,7 +33,7 @@ public class GetSingleModuleOfUniversity extends AbstractGetRelationState<Respon
 
     @Override
     protected SingleModelResult<Module> loadModel() {
-        return DaoFactory.getInstance().getModuleDao().readById(this.requestedId);
+        return DaoFactory.getInstance().getUniversityModuleDao().readById(this.primaryId, this.requestedId);
     }
 
     @Override

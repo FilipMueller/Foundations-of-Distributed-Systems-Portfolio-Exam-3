@@ -63,6 +63,12 @@ public class University extends AbstractModel {
         this.departmentName = departmentName;
         this.departmentUrl = departmentUrl;
         this.contactPerson = contactPerson;
+        if (outboundStudents < 0) {
+            throw new IllegalArgumentException("Outbound students cannot be negative");
+        }
+        if (inboundStudents < 0) {
+            throw new IllegalArgumentException("Inbound students cannot be negative");
+        }
         this.outboundStudents = outboundStudents;
         this.inboundStudents = inboundStudents;
         this.nextSpringSemesterStart = nextSpringSemesterStart;
@@ -146,6 +152,9 @@ public class University extends AbstractModel {
     }
 
     public void setOutboundStudents(int outboundStudents) {
+        if (outboundStudents < 0) {
+            throw new IllegalArgumentException("Outbound students cannot be negative");
+        }
         this.outboundStudents = outboundStudents;
     }
 
@@ -154,6 +163,9 @@ public class University extends AbstractModel {
     }
 
     public void setInboundStudents(int inboundStudents) {
+        if (inboundStudents < 0) {
+            throw new IllegalArgumentException("Inbound students cannot be negative");
+        }
         this.inboundStudents = inboundStudents;
     }
 

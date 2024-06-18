@@ -4,7 +4,6 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonRootName;
 import de.fhws.fiw.fds.sutton.server.api.hyperlinks.Link;
 import de.fhws.fiw.fds.sutton.server.api.hyperlinks.annotations.SecondarySelfLink;
-import de.fhws.fiw.fds.sutton.server.api.hyperlinks.annotations.SelfLink;
 import de.fhws.fiw.fds.sutton.server.models.AbstractModel;
 import jakarta.xml.bind.annotation.XmlRootElement;
 
@@ -23,28 +22,15 @@ public class Module extends AbstractModel {
             primaryPathElement = "universities",
             secondaryPathElement = "modules"
     )
-    private transient Link selfLinkOnSecond;
-
-    @SelfLink(
-            pathElement = "modules")
     private transient Link selfLink;
 
     public Module() {
-        // make JPA happy
     }
 
     public Module(final String cityName, final int semester, final float creditPoints) {
         this.name = cityName;
         this.semester = semester;
         this.creditPoints = creditPoints;
-    }
-
-    public Link getSelfLinkOnSecond() {
-        return selfLinkOnSecond;
-    }
-
-    public void setSelfLinkOnSecond(final Link selfLinkOnSecond) {
-        this.selfLinkOnSecond = selfLinkOnSecond;
     }
 
     public Link getSelfLink() {

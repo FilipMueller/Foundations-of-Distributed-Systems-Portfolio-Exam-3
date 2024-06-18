@@ -11,6 +11,8 @@ public interface UniversityModuleDao extends IDatabaseRelationAccessObject<Modul
 
     CollectionModelResult<Module> readByModuleName(long primaryId, String cityName, SearchParameter searchParameter);
 
+    CollectionModelResult<Module> readAllModulesByAttributeAndOrder(long primaryId, String orderByAttribute, boolean ascending, SearchParameter searchParameter);
+
     List<Module> readByUniversityId(long universityId);
 
     void initializeDatabase();

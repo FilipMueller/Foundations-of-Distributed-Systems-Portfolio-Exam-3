@@ -12,8 +12,6 @@ public class QueryByModuleName<R> extends AbstractRelationQuery<R, Module> {
 
     private String moduleName;
 
-    private int waitingTime;
-
     public QueryByModuleName(long primaryId, String moduleName, int offset, int size) {
         super(primaryId);
         this.moduleName = moduleName;
@@ -26,14 +24,6 @@ public class QueryByModuleName<R> extends AbstractRelationQuery<R, Module> {
 
     public void setModuleName(String moduleName) {
         this.moduleName = moduleName;
-    }
-
-    public int getWaitingTime() {
-        return waitingTime;
-    }
-
-    public void setWaitingTime(int waitingTime) {
-        this.waitingTime = waitingTime;
     }
 
     @Override

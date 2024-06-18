@@ -24,5 +24,7 @@ public interface UniversityDao extends IDatabaseAccessObject<University> {
     CollectionModelResult<University> readByUniversityName(String universityName,
                                                            SearchParameter searchParameter);
 
+    CollectionModelResult<University> readUniversitiesByAttributeAndOrder(String orderByAttribute, boolean ascending, SearchParameter searchParameter);
+
     void resetDatabase();
 }

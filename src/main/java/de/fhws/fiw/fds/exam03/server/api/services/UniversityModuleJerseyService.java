@@ -14,6 +14,9 @@
 
 package de.fhws.fiw.fds.exam03.server.api.services;
 
+import de.fhws.fiw.fds.exam03.server.api.queries.QueryBySortModulesOfUniversity;
+import de.fhws.fiw.fds.exam03.server.api.queries.QueryBySortUniversities;
+import de.fhws.fiw.fds.sutton.server.api.queries.AbstractQuery;
 import de.fhws.fiw.fds.sutton.server.api.serviceAdapters.Exceptions.SuttonWebAppException;
 import de.fhws.fiw.fds.sutton.server.api.services.AbstractJerseyService;
 import de.fhws.fiw.fds.exam03.server.api.models.Module;
@@ -37,13 +40,22 @@ public class UniversityModuleJerseyService extends AbstractJerseyService {
     @Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
     public Response getAllUniversities(
             @DefaultValue("") @QueryParam("universityName") final String universityName,
+            @DefaultValue("") @QueryParam("orderByAttribute") final String orderByAttribute,
+            @DefaultValue("true") @QueryParam("ascending") final boolean ascending,
             @DefaultValue("0") @QueryParam("offset") int offset,
             @DefaultValue("20") @QueryParam("size") int size) {
         try {
-            return new GetAllUniversities(
-                    this.serviceContext,
-                    new QueryByUniversityName<>(universityName, offset, size)
-            ).execute();
+            if (!orderByAttribute.isEmpty()) {
+                return new GetAllUniversities(
+                        this.serviceContext,
+                        new QueryBySortUniversities<>(orderByAttribute, ascending, offset, size)
+                ).execute();
+            } else {
+                return new GetAllUniversities(
+                        this.serviceContext,
+                        new QueryByUniversityName<>(universityName, offset, size)
+                ).execute();
+            }
         } catch (SuttonWebAppException e) {
             throw new WebApplicationException(e.getExceptionMessage(), e.getStatus().getCode());
         }
@@ -102,10 +114,24 @@ public class UniversityModuleJerseyService extends AbstractJerseyService {
     @Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
     public Response getModulesOfUniversity(@PathParam("universityId") final long universityId,
                                            @DefaultValue("") @QueryParam("modulename") final String moduleName,
+                                           @DefaultValue("") @QueryParam("orderByAttribute") final String orderByAttribute,
+                                           @DefaultValue("true") @QueryParam("ascending") final boolean ascending,
                                            @DefaultValue("0") @QueryParam("offset") int offset,
                                            @DefaultValue("20") @QueryParam("size") int size) {
         try {
-            return new GetAllModulesOfUniversity(this.serviceContext, universityId, new QueryByModuleName<>(universityId, moduleName, offset, size)).execute();
+            if (!orderByAttribute.isEmpty()) {
+                return new GetAllModulesOfUniversity(
+                        this.serviceContext,
+                        universityId,
+                        new QueryBySortModulesOfUniversity<>(universityId, orderByAttribute, ascending, offset, size)
+                ).execute();
+            } else {
+                return new GetAllModulesOfUniversity(
+                        this.serviceContext,
+                        universityId,
+                        new QueryByModuleName<>(universityId, moduleName, offset, size)
+                ).execute();
+            }
         } catch (SuttonWebAppException e) {
             throw new WebApplicationException(Response.status(e.getStatus().getCode())
                     .entity(e.getExceptionMessage()).build());

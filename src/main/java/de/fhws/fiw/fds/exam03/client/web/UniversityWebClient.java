@@ -14,9 +14,8 @@ public class UniversityWebClient {
         this.client = new GenericWebClient<>();
     }
 
-    public UniversityWebResponse getDispatcher(String url ) throws IOException
-    {
-        return createResponse( this.client.sendGetSingleRequest( url ) );
+    public UniversityWebResponse getDispatcher(String url) throws IOException {
+        return createResponse(this.client.sendGetSingleRequest(url));
     }
 
     public UniversityWebResponse getSingleUniversity(String url) throws IOException {

@@ -7,8 +7,7 @@ import org.junit.jupiter.api.Test;
 import java.io.IOException;
 
 import static de.fhws.fiw.fds.exam03.server.api.service.CreateModels.getUniversityClientModel;
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class TestCreateUniversity {
 
@@ -29,6 +28,28 @@ public class TestCreateUniversity {
         assertTrue(client.isCreateUniversityAllowed());
         client.createUniversity(university);
         assertEquals(201, client.getLastStatusCode());
+    }
+
+    @Test void test_create_university_but_outBoundStudents_is_less_than_zero() throws IOException {
+        client.start();
+
+        var university = getUniversityClientModel();
+        university.setOutboundStudents(-1);
+
+        assertTrue(client.isCreateUniversityAllowed());
+        client.createUniversity(university);
+        assertEquals(500, client.getLastStatusCode());
+    }
+
+    @Test void test_create_university_but_inBoundStudents_is_less_than_zero() throws IOException {
+        client.start();
+
+        var university = getUniversityClientModel();
+        university.setInboundStudents(-1);
+
+        assertTrue(client.isCreateUniversityAllowed());
+        client.createUniversity(university);
+        assertEquals(500, client.getLastStatusCode());
     }
 
     @Test void test_create_5_universities_and_get_all() throws IOException

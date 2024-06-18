@@ -44,5 +44,4 @@ public class QueryByUniversityName<R> extends AbstractQuery<R, University> {
                 this.universityName,
                 searchParameter);
     }
-
 }
