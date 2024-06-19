@@ -10,7 +10,7 @@ import static de.fhws.fiw.fds.exam03.server.api.service.CreateModels.getModuleCl
 import static de.fhws.fiw.fds.exam03.server.api.service.CreateModels.getUniversityClientModel;
 import static org.junit.jupiter.api.Assertions.*;
 
-public class TestCreateModuleOfUniversity {
+public class TestCreateModuleOfUniversityIT {
 
     private DemoRestClient client;
     private final String UNIVERSITY_NAME = "Test University";

@@ -113,7 +113,7 @@ public class UniversityModuleJerseyService extends AbstractJerseyService {
     @Path("{universityId: \\d+}/modules")
     @Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
     public Response getModulesOfUniversity(@PathParam("universityId") final long universityId,
-                                           @DefaultValue("") @QueryParam("modulename") final String moduleName,
+                                           @DefaultValue("") @QueryParam("moduleName") final String moduleName,
                                            @DefaultValue("") @QueryParam("orderByAttribute") final String orderByAttribute,
                                            @DefaultValue("true") @QueryParam("ascending") final boolean ascending,
                                            @DefaultValue("0") @QueryParam("offset") int offset,

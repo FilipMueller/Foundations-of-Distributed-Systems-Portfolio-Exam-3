@@ -9,7 +9,7 @@ import java.io.IOException;
 import static de.fhws.fiw.fds.exam03.server.api.service.CreateModels.getUniversityClientModel;
 import static org.junit.jupiter.api.Assertions.*;
 
-public class TestCreateUniversity {
+public class TestCreateUniversityIT {
 
     private DemoRestClient client;
 

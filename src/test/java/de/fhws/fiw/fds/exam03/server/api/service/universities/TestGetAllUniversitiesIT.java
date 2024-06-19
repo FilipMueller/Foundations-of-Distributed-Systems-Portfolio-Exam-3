@@ -9,7 +9,7 @@ import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
 
-public class TestGetAllUniversities {
+public class TestGetAllUniversitiesIT {
 
     private DemoRestClient client;
 

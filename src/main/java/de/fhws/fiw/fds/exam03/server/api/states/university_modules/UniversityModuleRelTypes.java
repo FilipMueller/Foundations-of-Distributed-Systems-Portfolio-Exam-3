@@ -6,4 +6,6 @@ public interface UniversityModuleRelTypes {
 	String UPDATE_SINGLE_MODULE = "updateModuleOfUniversity";
 	String DELETE_MODULE_FROM_UNIVERSITY = "deleteModuleFromUniversity";
 	String GET_SINGLE_MODULE = "getSingleModuleOfUniversity";
+	String GET_ALL_MODULES_QUERY_BY_NAME = "getAllModulesQueryByName";
+	String GET_ALL_MODULES_QUERY_BY_SORT = "getAllModulesQueryBySort";
 }

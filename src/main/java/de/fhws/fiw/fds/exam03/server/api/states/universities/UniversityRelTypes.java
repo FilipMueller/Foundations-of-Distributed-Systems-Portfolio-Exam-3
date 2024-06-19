@@ -23,5 +23,7 @@ public interface UniversityRelTypes {
     String UPDATE_SINGLE_UNIVERSITY = "updateUniversity";
     String DELETE_SINGLE_UNIVERSITY = "deleteUniversity";
     String GET_SINGLE_UNIVERSITY = "getSingleUniversity";
+    String GET_ALL_UNIVERSITIES_QUERY_BY_NAME = "getAllUniversitiesQueryByName";
+    String GET_ALL_UNIVERSITIES_QUERY_BY_SORT = "getAllUniversitiesQueryBySort";
 
 }

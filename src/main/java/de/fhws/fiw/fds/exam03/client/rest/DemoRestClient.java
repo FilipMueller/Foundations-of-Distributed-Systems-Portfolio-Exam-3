@@ -22,6 +22,10 @@ public class DemoRestClient extends AbstractRestClient {
     private static final String CREATE_MODULE = "createModuleOfUniversity";
     private static final String UPDATE_SINGLE_MODULE = "updateModuleOfUniversity";
     private static final String DELETE_MODULE_FROM_UNIVERSITY = "deleteModuleFromUniversity";
+    private static final String GET_ALL_UNIVERSITIES_QUERY_BY_NAME = "getAllUniversitiesQueryByName";
+    private static final String GET_ALL_UNIVERSITIES_QUERY_BY_SORT = "getAllUniversitiesQueryBySort";
+    private static final String GET_ALL_MODULES_QUERY_BY_NAME = "getAllModulesQueryByName";
+    private static final String GET_ALL_MODULES_QUERY_BY_SORT = "getAllModulesQueryBySort";
 
 
     private List<UniversityClientModel> currentUniversityData;
@@ -65,6 +69,7 @@ public class DemoRestClient extends AbstractRestClient {
         }
     }
 
+
     public boolean isGetAllUniversitiesAllowed() {
         return isLinkAvailable(GET_ALL_UNIVERSITIES);
     }
@@ -77,6 +82,41 @@ public class DemoRestClient extends AbstractRestClient {
             });
         } else {
             throw new IllegalStateException("Get collection of universities not allowed");
+        }
+    }
+
+    public boolean isGetAllUniversitiesQueryByNameAllowed() {
+        return isLinkAvailable(GET_ALL_UNIVERSITIES_QUERY_BY_NAME);
+    }
+
+    public void getAllUniversitiesQueryByName(String universityName) throws IOException {
+        if (isGetAllUniversitiesQueryByNameAllowed()) {
+            String url = getUrl(GET_ALL_UNIVERSITIES_QUERY_BY_NAME)
+                    .replace("name", universityName);
+            processResponse(this.client.getCollectionOfUniversities(url), (response) -> {
+                this.currentUniversityData = new LinkedList(response.getResponseData());
+                this.cursorUniversityData = 0;
+            });
+        } else {
+            throw new IllegalStateException("Get collection of universities by query name not allowed");
+        }
+    }
+
+    public boolean isGetAllUniversitiesQueryBySortAllowed() {
+        return isLinkAvailable(GET_ALL_UNIVERSITIES_QUERY_BY_SORT);
+    }
+
+    public void getAllUniversitiesQueryBySort(String attribute, String ascending) throws IOException {
+        if (isGetAllUniversitiesQueryBySortAllowed()) {
+            String url = getUrl(GET_ALL_UNIVERSITIES_QUERY_BY_SORT)
+                    .replace("attribute", attribute)
+                    .replace("true", ascending);
+            processResponse(this.client.getCollectionOfUniversities(url), (response) -> {
+                this.currentUniversityData = new LinkedList(response.getResponseData());
+                this.cursorUniversityData = 0;
+            });
+        } else {
+            throw new IllegalStateException("Get collection of universities by query sort not allowed");
         }
     }
 
@@ -180,6 +220,41 @@ public class DemoRestClient extends AbstractRestClient {
             });
         } else {
             throw new IllegalStateException("Get collection of modules not allowed");
+        }
+    }
+
+    public boolean isGetAllModulesQueryByNameAllowed() {
+        return isLinkAvailable(GET_ALL_MODULES_QUERY_BY_NAME);
+    }
+
+    public void getAllModulesQueryByName(String moduleName) throws IOException {
+        if (isGetAllModulesQueryByNameAllowed()) {
+            String url = getUrl(GET_ALL_MODULES_QUERY_BY_NAME)
+                    .replace("name", moduleName);
+            processResponse(this.webClient.getCollectionOfModules(url), (response) -> {
+                this.currentModuleData = new LinkedList(response.getResponseData());
+                this.cursorModuleData = 0;
+            });
+        } else {
+            throw new IllegalStateException("Get collection of modules by query name not allowed");
+        }
+    }
+
+    public boolean isGetAllModulesQueryBySortAllowed() {
+        return isLinkAvailable(GET_ALL_MODULES_QUERY_BY_SORT);
+    }
+
+    public void getAllModulesQueryBySort(String attribute, String ascending) throws IOException {
+        if (isGetAllModulesQueryBySortAllowed()) {
+            String url = getUrl(GET_ALL_MODULES_QUERY_BY_SORT)
+                    .replace("attribute", attribute)
+                    .replace("true", ascending);
+            processResponse(this.webClient.getCollectionOfModules(url), (response) -> {
+                this.currentModuleData = new LinkedList(response.getResponseData());
+                this.cursorModuleData = 0;
+            });
+        } else {
+            throw new IllegalStateException("Get collection of modules by query sort not allowed");
         }
     }
 

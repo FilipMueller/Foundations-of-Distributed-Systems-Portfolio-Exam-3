@@ -11,7 +11,7 @@ import static de.fhws.fiw.fds.exam03.server.api.service.CreateModels.getUniversi
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-public class TestUpdateModuleOfUniversity {
+public class TestUpdateModuleOfUniversityIT {
 
     private DemoRestClient client;
     private final String UNIVERSITY_NAME = "Test University";

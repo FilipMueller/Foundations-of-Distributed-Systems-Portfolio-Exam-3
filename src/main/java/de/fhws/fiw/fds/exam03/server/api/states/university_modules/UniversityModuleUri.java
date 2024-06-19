@@ -11,4 +11,13 @@ public interface UniversityModuleUri {
     String REL_PATH_SHOW_ALL = Start.CONTEXT_PATH + "/api/" + PATH_ELEMENT + "?" + SHOW_ALL_PARAMETER + "=true";
     String REL_PATH_SHOW_ONLY_LINKED = Start.CONTEXT_PATH + "/api/" + PATH_ELEMENT + "?" + SHOW_ALL_PARAMETER + "=false";
     String REL_PATH_ID = REL_PATH + "/{id}";
+
+    String QUERY_BY_NAME = "?moduleName=";
+    String NAME = "name";
+    String QUERY_SORT_BY_ATTRIBUTE = "?orderByAttribute=";
+    String ATTRIBUTE ="attribute";
+    String QUERY_BY_ORDER = "&ascending=";
+    String ORDER = "true";
+    String REL_PATH_WITH_QUERY_BY_NAME = Start.CONTEXT_PATH + "/api/" + PATH_ELEMENT + QUERY_BY_NAME + NAME;
+    String REL_PATH_WITH_QUERY_BY_SORT = Start.CONTEXT_PATH + "/api/" + PATH_ELEMENT + QUERY_SORT_BY_ATTRIBUTE + ATTRIBUTE + QUERY_BY_ORDER + ORDER;
 }

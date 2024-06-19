@@ -32,5 +32,15 @@ public class GetAllModulesOfUniversity extends AbstractGetCollectionRelationStat
                 UniversityRelTypes.GET_SINGLE_UNIVERSITY,
                 getAcceptRequestHeader(),
                 this.primaryId);
+
+        addLink(UniversityModuleUri.REL_PATH_WITH_QUERY_BY_NAME,
+                UniversityModuleRelTypes.GET_ALL_MODULES_QUERY_BY_NAME,
+                getAcceptRequestHeader(),
+                this.primaryId);
+
+        addLink(UniversityModuleUri.REL_PATH_WITH_QUERY_BY_SORT,
+                UniversityModuleRelTypes.GET_ALL_MODULES_QUERY_BY_SORT,
+                getAcceptRequestHeader(),
+                this.primaryId);
     }
 }
