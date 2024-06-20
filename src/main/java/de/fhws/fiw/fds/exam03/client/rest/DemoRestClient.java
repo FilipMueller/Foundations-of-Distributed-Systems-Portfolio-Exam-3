@@ -13,7 +13,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 public class DemoRestClient extends AbstractRestClient {
-    private static final String BASE_URL = "http://localhost:8080/exam/api";
+    private static final String BASE_URL = "http://localhost:8080/demo/api";
     private static final String GET_ALL_UNIVERSITIES = "getAllUniversities";
     private static final String CREATE_UNIVERSITY = "createUniversity";
     private static final String UPDATE_SINGLE_UNIVERSITY = "updateUniversity";
@@ -26,6 +26,10 @@ public class DemoRestClient extends AbstractRestClient {
     private static final String GET_ALL_UNIVERSITIES_QUERY_BY_SORT = "getAllUniversitiesQueryBySort";
     private static final String GET_ALL_MODULES_QUERY_BY_NAME = "getAllModulesQueryByName";
     private static final String GET_ALL_MODULES_QUERY_BY_SORT = "getAllModulesQueryBySort";
+    private static final String GET_ALL_UNIVERSITIES_BY_PAGE_AND_OFFSET = "getAllUniversitiesByPageAndOffset";
+    private static final String GET_ALL_MODULES_BY_PAGE_AND_OFFSET = "getAllModulesByPageAndOffset";
+    private static final String GET_ALL_PREV_PAGE = "prev";
+    private static final String GET_ALL_NEXT_PAGE = "next";
 
 
     private List<UniversityClientModel> currentUniversityData;
@@ -117,6 +121,54 @@ public class DemoRestClient extends AbstractRestClient {
             });
         } else {
             throw new IllegalStateException("Get collection of universities by query sort not allowed");
+        }
+    }
+
+    public boolean isGetAllUniversitiesWithPagingAllowed() {
+        return isLinkAvailable(GET_ALL_UNIVERSITIES_BY_PAGE_AND_OFFSET);
+    }
+
+    public void getAllUniversitiesWithPaging(String start, String dimension) throws IOException {
+        if (isGetAllUniversitiesWithPagingAllowed()) {
+            String url = getUrl(GET_ALL_UNIVERSITIES_BY_PAGE_AND_OFFSET)
+                    .replace("start", start)
+                    .replace("dimension", dimension);
+            processResponse(this.client.getCollectionOfUniversities(url), (response) -> {
+                this.currentUniversityData = new LinkedList(response.getResponseData());
+                this.cursorUniversityData = 0;
+            });
+        } else {
+            throw new IllegalStateException("Get collection of universities with paging not allowed");
+        }
+    }
+
+    public boolean isGetAllUniversitiesPreviousPageAllowed() {
+        return isLinkAvailable(GET_ALL_PREV_PAGE);
+    }
+
+    public void getAllUniversitiesPreviousPage() throws IOException {
+        if (isGetAllUniversitiesPreviousPageAllowed()) {
+            processResponse(this.client.getCollectionOfUniversities(getUrl(GET_ALL_PREV_PAGE)), (response) -> {
+                this.currentUniversityData = new LinkedList(response.getResponseData());
+                this.cursorUniversityData = 0;
+            });
+        } else {
+            throw new IllegalStateException("Get collection of previous page not allowed");
+        }
+    }
+
+    public boolean isGetAllUniversitiesNextPageAllowed() {
+        return isLinkAvailable(GET_ALL_NEXT_PAGE);
+    }
+
+    public void getAllUniversitiesNextPage() throws IOException {
+        if (isGetAllUniversitiesNextPageAllowed()) {
+            processResponse(this.client.getCollectionOfUniversities(getUrl(GET_ALL_NEXT_PAGE)), (response) -> {
+                this.currentUniversityData = new LinkedList(response.getResponseData());
+                this.cursorUniversityData = 0;
+            });
+        } else {
+            throw new IllegalStateException("Get collection of next page not allowed");
         }
     }
 
@@ -255,6 +307,54 @@ public class DemoRestClient extends AbstractRestClient {
             });
         } else {
             throw new IllegalStateException("Get collection of modules by query sort not allowed");
+        }
+    }
+
+    public boolean isGetAllModulesWithPagingAllowed() {
+        return isLinkAvailable(GET_ALL_MODULES_BY_PAGE_AND_OFFSET);
+    }
+
+    public void getAllModulesWithPaging(String start, String dimension) throws IOException {
+        if (isGetAllModulesWithPagingAllowed()) {
+            String url = getUrl(GET_ALL_MODULES_BY_PAGE_AND_OFFSET)
+                    .replace("start", start)
+                    .replace("dimension", dimension);
+            processResponse(this.webClient.getCollectionOfModules(url), (response) -> {
+                this.currentModuleData = new LinkedList(response.getResponseData());
+                this.cursorModuleData = 0;
+            });
+        } else {
+            throw new IllegalStateException("Get collection of modules paging not allowed");
+        }
+    }
+
+    public boolean isGetAllModulesPreviousPageAllowed() {
+        return isLinkAvailable(GET_ALL_PREV_PAGE);
+    }
+
+    public void getAllModulesPreviousPage() throws IOException {
+        if (isGetAllModulesPreviousPageAllowed()) {
+            processResponse(this.webClient.getCollectionOfModules(getUrl(GET_ALL_PREV_PAGE)), (response) -> {
+                this.currentModuleData = new LinkedList(response.getResponseData());
+                this.cursorModuleData = 0;
+            });
+        } else {
+            throw new IllegalStateException("Get collection of previous page not allowed");
+        }
+    }
+
+    public boolean isGetAllModulesNextPageAllowed() {
+        return isLinkAvailable(GET_ALL_NEXT_PAGE);
+    }
+
+    public void getAllModulesNextPage() throws IOException {
+        if (isGetAllModulesNextPageAllowed()) {
+            processResponse(this.webClient.getCollectionOfModules(getUrl(GET_ALL_NEXT_PAGE)), (response) -> {
+                this.currentModuleData = new LinkedList(response.getResponseData());
+                this.cursorModuleData = 0;
+            });
+        } else {
+            throw new IllegalStateException("Get collection of next page not allowed");
         }
     }
 

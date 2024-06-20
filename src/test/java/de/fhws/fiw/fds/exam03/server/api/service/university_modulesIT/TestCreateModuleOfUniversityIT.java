@@ -1,4 +1,4 @@
-package de.fhws.fiw.fds.exam03.server.api.service.university_modules;
+package de.fhws.fiw.fds.exam03.server.api.service.university_modulesIT;
 
 import de.fhws.fiw.fds.exam03.client.rest.DemoRestClient;
 import org.junit.jupiter.api.BeforeEach;
@@ -6,8 +6,8 @@ import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
 
-import static de.fhws.fiw.fds.exam03.server.api.service.CreateModels.getModuleClientModel;
-import static de.fhws.fiw.fds.exam03.server.api.service.CreateModels.getUniversityClientModel;
+import static de.fhws.fiw.fds.exam03.server.api.service.CreateModelsIT.getModuleClientModel;
+import static de.fhws.fiw.fds.exam03.server.api.service.CreateModelsIT.getUniversityClientModel;
 import static org.junit.jupiter.api.Assertions.*;
 
 public class TestCreateModuleOfUniversityIT {

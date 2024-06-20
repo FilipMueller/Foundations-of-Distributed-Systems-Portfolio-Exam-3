@@ -6,7 +6,7 @@ import org.jetbrains.annotations.NotNull;
 
 import java.time.LocalDate;
 
-public class CreateModels {
+public class CreateModelsIT {
     public static @NotNull UniversityClientModel getUniversityClientModel()
     {
         var university = new UniversityClientModel();

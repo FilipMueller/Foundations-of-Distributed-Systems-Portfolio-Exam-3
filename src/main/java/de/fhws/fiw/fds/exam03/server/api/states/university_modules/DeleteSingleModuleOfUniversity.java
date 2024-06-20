@@ -18,7 +18,6 @@ public class DeleteSingleModuleOfUniversity extends AbstractDeleteRelationState<
         this.suttonResponse = new JerseyResponse<>();
     }
 
-
     @Override
     protected SingleModelResult<Module> loadModel() {
         return DaoFactory.getInstance().getUniversityModuleDao().readById(this.primaryId, this.modelIdToDelete);

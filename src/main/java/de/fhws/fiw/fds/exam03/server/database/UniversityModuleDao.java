@@ -18,5 +18,4 @@ public interface UniversityModuleDao extends IDatabaseRelationAccessObject<Modul
     void initializeDatabase();
 
     void resetDatabase();
-
 }

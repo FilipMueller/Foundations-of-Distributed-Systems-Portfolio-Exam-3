@@ -1,4 +1,4 @@
-package de.fhws.fiw.fds.exam03.server.api.service.university_modules;
+package de.fhws.fiw.fds.exam03.server.api.service.university_modulesIT;
 
 import de.fhws.fiw.fds.exam03.client.rest.DemoRestClient;
 import org.junit.jupiter.api.BeforeEach;
@@ -6,8 +6,8 @@ import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
 
-import static de.fhws.fiw.fds.exam03.server.api.service.CreateModels.getModuleClientModel;
-import static de.fhws.fiw.fds.exam03.server.api.service.CreateModels.getUniversityClientModel;
+import static de.fhws.fiw.fds.exam03.server.api.service.CreateModelsIT.getModuleClientModel;
+import static de.fhws.fiw.fds.exam03.server.api.service.CreateModelsIT.getUniversityClientModel;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
@@ -37,7 +37,7 @@ public class TestGetAllModulesOfUniversityIT {
         client.getAllModules();
         assertEquals(200, client.getLastStatusCode());
 
-        for( int i=0; i<5; i++ ) {
+        for (int i = 0; i < 5; i++) {
             assertTrue(client.isCreateModuleAllowed());
             var module = getModuleClientModel();
 
@@ -72,7 +72,7 @@ public class TestGetAllModulesOfUniversityIT {
         client.getAllModules();
         assertEquals(200, client.getLastStatusCode());
 
-        for( int i=0; i<5; i++ ) {
+        for (int i = 0; i < 5; i++) {
             assertTrue(client.isCreateModuleAllowed());
             var module = getModuleClientModel();
 
@@ -108,5 +108,58 @@ public class TestGetAllModulesOfUniversityIT {
         client.getAllModulesQueryBySort("name", "false");
         assertEquals(200, client.getLastStatusCode());
         assertEquals("E", client.moduleData().getFirst().getName());
+    }
+
+    @Test
+    void test_get_all_modules_of_university_with_paging_previous_and_next_page() throws IOException {
+
+        client.start();
+        var university = getUniversityClientModel();
+        university.setName(UNIVERSITY_NAME);
+        client.createUniversity(university);
+        assertEquals(201, client.getLastStatusCode());
+
+        client.getSingleUniversity();
+        assertEquals(200, client.getLastStatusCode());
+
+        client.getAllModules();
+        assertEquals(200, client.getLastStatusCode());
+
+        for (int i = 0; i < 11; i++) {
+            assertTrue(client.isCreateModuleAllowed());
+            var module = getModuleClientModel();
+
+            client.createModule(module);
+            module.setName(MODULE_NAME);
+
+            assertEquals(201, client.getLastStatusCode());
+            assertTrue(client.isGetAllModulesAllowed());
+            client.getAllModules();
+        }
+
+        client.start();
+
+        client.getSingleUniversity();
+        assertEquals(200, client.getLastStatusCode());
+
+        assertTrue(client.isGetAllModulesAllowed());
+        client.getAllModules();
+
+        assertTrue(client.isGetAllModulesWithPagingAllowed());
+        client.getAllModulesWithPaging("0", "5");
+        assertEquals(200, client.getLastStatusCode());
+        assertEquals(5, client.moduleData().size());
+
+        client.getAllModulesWithPaging("0", "10");
+        assertEquals(200, client.getLastStatusCode());
+        assertEquals(10, client.moduleData().size());
+
+        assertTrue(client.isGetAllModulesNextPageAllowed());
+        client.getAllModulesNextPage();
+        assertEquals(1, client.moduleData().size());
+
+        assertTrue(client.isGetAllModulesPreviousPageAllowed());
+        client.getAllModulesPreviousPage();
+        assertEquals(10, client.moduleData().size());
     }
 }

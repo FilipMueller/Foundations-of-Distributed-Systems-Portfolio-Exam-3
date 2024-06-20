@@ -25,5 +25,5 @@ public interface UniversityRelTypes {
     String GET_SINGLE_UNIVERSITY = "getSingleUniversity";
     String GET_ALL_UNIVERSITIES_QUERY_BY_NAME = "getAllUniversitiesQueryByName";
     String GET_ALL_UNIVERSITIES_QUERY_BY_SORT = "getAllUniversitiesQueryBySort";
-
+    String GET_ALL_UNIVERSITIES_BY_PAGE_AND_OFFSET = "getAllUniversitiesByPageAndOffset";
 }

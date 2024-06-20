@@ -33,6 +33,11 @@ public class GetAllModulesOfUniversity extends AbstractGetCollectionRelationStat
                 getAcceptRequestHeader(),
                 this.primaryId);
 
+        addLink(UniversityModuleUri.REL_PATH_WITH_PAGE_AND_OFFSET,
+                UniversityModuleRelTypes.GET_ALL_MODULES_BY_PAGE_AND_OFFSET,
+                getAcceptRequestHeader(),
+                this.primaryId);
+
         addLink(UniversityModuleUri.REL_PATH_WITH_QUERY_BY_NAME,
                 UniversityModuleRelTypes.GET_ALL_MODULES_QUERY_BY_NAME,
                 getAcceptRequestHeader(),

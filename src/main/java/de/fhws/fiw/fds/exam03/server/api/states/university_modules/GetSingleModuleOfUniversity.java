@@ -18,7 +18,6 @@ public class GetSingleModuleOfUniversity extends AbstractGetRelationState<Respon
         this.suttonResponse = new JerseyResponse<>();
     }
 
-
     @Override
     protected boolean clientKnowsCurrentModelState(AbstractModel modelFromDatabase) {
         return this.suttonRequest.clientKnowsCurrentModel(modelFromDatabase);

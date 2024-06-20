@@ -11,7 +11,6 @@ import de.fhws.fiw.fds.exam03.server.database.UniversityModuleDao;
 
 import java.util.Comparator;
 import java.util.List;
-import java.util.stream.Collectors;
 
 public class UniversityModuleStorage extends AbstractInMemoryRelationStorage<Module> implements UniversityModuleDao {
     final private ModuleDao moduleStorage;
@@ -44,13 +43,12 @@ public class UniversityModuleStorage extends AbstractInMemoryRelationStorage<Mod
                 comparator = Comparator.comparing(Module::getSemester);
                 break;
             default:
-                throw new IllegalArgumentException("Unsupported orderByAttribute: " + orderByAttribute);
+                throw new IllegalArgumentException("Unsupported attribute: " + orderByAttribute);
         }
 
         if (!ascending) {
             comparator = comparator.reversed();
         }
-
         List<Module> sortedModules = readByUniversityId(primaryId).stream()
                 .sorted(comparator)
                 .toList();

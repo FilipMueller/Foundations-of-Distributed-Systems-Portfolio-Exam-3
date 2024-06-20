@@ -20,4 +20,10 @@ public interface UniversityModuleUri {
     String ORDER = "true";
     String REL_PATH_WITH_QUERY_BY_NAME = Start.CONTEXT_PATH + "/api/" + PATH_ELEMENT + QUERY_BY_NAME + NAME;
     String REL_PATH_WITH_QUERY_BY_SORT = Start.CONTEXT_PATH + "/api/" + PATH_ELEMENT + QUERY_SORT_BY_ATTRIBUTE + ATTRIBUTE + QUERY_BY_ORDER + ORDER;
+
+    String OFFSET = "?offset=";
+    String START = "start";
+    String SIZE = "&size=";
+    String DIMENSION = "dimension";
+    String REL_PATH_WITH_PAGE_AND_OFFSET = Start.CONTEXT_PATH + "/api/" + PATH_ELEMENT + OFFSET + START + SIZE + DIMENSION;
 }

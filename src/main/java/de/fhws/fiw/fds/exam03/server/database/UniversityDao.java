@@ -21,8 +21,7 @@ import de.fhws.fiw.fds.exam03.server.api.models.University;
 
 public interface UniversityDao extends IDatabaseAccessObject<University> {
 
-    CollectionModelResult<University> readByUniversityName(String universityName,
-                                                           SearchParameter searchParameter);
+    CollectionModelResult<University> readByUniversityName(String universityName, SearchParameter searchParameter);
 
     CollectionModelResult<University> readUniversitiesByAttributeAndOrder(String orderByAttribute, boolean ascending, SearchParameter searchParameter);
 

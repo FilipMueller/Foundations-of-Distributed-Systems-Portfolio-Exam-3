@@ -36,5 +36,4 @@ public class SuttonDemoJerseyApplication extends AbstractJerseyApplication {
 
         return returnValue;
     }
-
 }

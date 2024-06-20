@@ -1,4 +1,4 @@
-package de.fhws.fiw.fds.exam03.server.api.service.universities;
+package de.fhws.fiw.fds.exam03.server.api.service.universitiesIT;
 
 import de.fhws.fiw.fds.exam03.client.rest.DemoRestClient;
 import org.junit.jupiter.api.BeforeEach;
@@ -6,11 +6,11 @@ import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
 
-import static de.fhws.fiw.fds.exam03.server.api.service.CreateModels.getUniversityClientModel;
+import static de.fhws.fiw.fds.exam03.server.api.service.CreateModelsIT.getUniversityClientModel;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-public class TestUpdateUniversityIT {
+public class TestDeleteUniversityIT {
 
     private DemoRestClient client;
 
@@ -21,7 +21,7 @@ public class TestUpdateUniversityIT {
     }
 
     @Test
-    void test_update_university() throws IOException
+    void test_delete_university() throws IOException
     {
         client.start();
 
@@ -34,14 +34,9 @@ public class TestUpdateUniversityIT {
         assertTrue(client.isGetSingleUniversityAllowed());
         client.getSingleUniversity();
 
-        long id = university.getId();
+        assertTrue(client.isDeleteUniversityAllowed());
+        client.deleteSingleUniversity();
 
-        var updatedUniversity = getUniversityClientModel();
-        updatedUniversity.setName("UPDATED NAME");
-        updatedUniversity.setId(id);
-
-        assertTrue(client.isUpdateUniversityAllowed());
-        client.updateSingleUniversity(updatedUniversity);
         assertEquals(204, client.getLastStatusCode());
     }
 }

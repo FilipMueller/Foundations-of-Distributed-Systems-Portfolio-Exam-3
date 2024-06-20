@@ -22,10 +22,7 @@ import java.util.Collection;
 
 public class UniversityWebResponse extends WebApiResponse<UniversityClientModel> {
 
-
     public UniversityWebResponse(final Collection<UniversityClientModel> responseData, final Headers headers, final int lastStatusCode) {
         super(responseData, headers, lastStatusCode);
     }
-
-
 }

@@ -34,6 +34,7 @@ public class GetAllUniversities extends AbstractGetCollectionState<Response, Uni
     protected void defineTransitionLinks() {
         addLink(UniversityUri.REL_PATH, UniversityRelTypes.CREATE_UNIVERSITY, getAcceptRequestHeader());
         addLink(UniversityUri.REL_PATH_ID, UniversityRelTypes.GET_SINGLE_UNIVERSITY, getAcceptRequestHeader());
+        addLink(UniversityUri.REL_PATH_WITH_PAGE_AND_OFFSET, UniversityRelTypes.GET_ALL_UNIVERSITIES_BY_PAGE_AND_OFFSET, getAcceptRequestHeader());
         addLink(UniversityUri.REL_PATH_WITH_QUERY_BY_NAME, UniversityRelTypes.GET_ALL_UNIVERSITIES_QUERY_BY_NAME, getAcceptRequestHeader());
         addLink(UniversityUri.REL_PATH_WITH_QUERY_BY_SORT, UniversityRelTypes.GET_ALL_UNIVERSITIES_QUERY_BY_SORT, getAcceptRequestHeader());
     }

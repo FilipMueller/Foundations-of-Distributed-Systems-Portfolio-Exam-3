@@ -18,7 +18,6 @@ public class PutSingleModuleOfUniversity extends AbstractPutRelationState<Respon
         this.suttonResponse = new JerseyResponse<>();
     }
 
-
     @Override
     protected boolean clientDoesNotKnowCurrentModelState(AbstractModel modelFromDatabase) {
         return this.suttonRequest.clientKnowsCurrentModel(modelFromDatabase);
